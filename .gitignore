@@ -1,0 +1,12 @@
+# CPH test metadata and compiled outputs
+.cph/
+*.tcs
+*.bin
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# OS/editor noise
+.DS_Store
