@@ -5,8 +5,10 @@
 #
 
 # @lc code=start
+
+
 class Solution:
-    def minMaxWaitingTime(self, demand: List[int], fuel: List[int]) -> int:
+    def minMaxWaitingTime(self, demand: list[int], fuel: list[int]) -> int:
         states = {(0, 0, 0): 0}
         total_used = 0
 
