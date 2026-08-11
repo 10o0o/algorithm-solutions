@@ -1,0 +1,35 @@
+{
+    "folders": [
+        {
+            "name": "Codeforces (CPH target)",
+            "path": "codeforces"
+        },
+        {
+            "name": "algorithm-solutions",
+            "path": "."
+        }
+    ],
+    "settings": {
+        "editor.codeLens": true,
+        "python.defaultInterpreterPath": "/usr/bin/python3",
+        "cph.general.defaultLanguage": "python",
+        "cph.general.menuChoices": "python",
+        "cph.language.python.Command": "python3",
+        "cph.general.timeOut": 5000,
+        "cph.general.saveLocation": "/home/jake/algorithm-solutions/.cph",
+        "cph.general.defaultLanguageTemplateFileLocation": "/home/jake/algorithm-solutions/templates/python.py",
+        "cph.general.doTemplateFileVariableReplacement": true,
+        "cph.general.useShortCodeForcesName": true,
+        "cph.general.useShortAtCoderName": true,
+        "cph.general.autoShowJudge": true,
+        "cph.companion.enableServer": true,
+        "cph.general.showLiveUserCount": false
+    },
+    "extensions": {
+        "recommendations": [
+            "divyanshuagrawal.competitive-programming-helper",
+            "leetcode.vscode-leetcode",
+            "ms-python.python"
+        ]
+    }
+}

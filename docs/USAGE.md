@@ -6,17 +6,23 @@
 ## 처음 한 번만 할 일
 
 1. 브라우저에 [Competitive Companion](https://github.com/jmerle/competitive-companion#install)을 설치합니다.
-2. VS Code에서 이 저장소를 연 뒤 `Developer: Reload Window`를 한 번 실행합니다.
-3. LeetCode 사이드바에서 `Sign in to LeetCode`를 누르고 `Third Party` 로그인을 선택합니다.
+2. VS Code에서 문제 사이트에 맞는 워크스페이스를 엽니다.
+   - AtCoder: `atcoder.code-workspace`
+   - Codeforces: `codeforces.code-workspace`
+3. `Developer: Reload Window`를 한 번 실행합니다.
+4. LeetCode 사이드바에서 `Sign in to LeetCode`를 누르고 `Third Party` 로그인을 선택합니다.
 
 ## AtCoder / Codeforces
 
 1. 브라우저에서 개별 문제 페이지를 엽니다.
 2. Competitive Companion의 초록색 `+` 버튼을 누릅니다.
-3. VS Code 루트에 Python 파일이 열리고 예제 입력과 출력이 CPH에 채워집니다.
+3. 선택한 사이트의 디렉터리에 Python 파일이 열리고 예제 입력과 출력이 CPH에 채워집니다.
 4. 코드를 작성하고 `Ctrl+Alt+B`로 모든 예제를 테스트합니다.
 5. 각 사이트에서 코드를 직접 제출합니다.
-6. 정답 처리 후 파일을 `atcoder/` 또는 `codeforces/`로 옮깁니다.
+
+CPH는 첫 번째 워크스페이스 폴더에 소스 파일을 생성합니다. 따라서 저장소 폴더를
+그대로 열지 말고 사이트에 맞는 `.code-workspace` 파일을 열어야 합니다.
+`cph.general.saveLocation`은 소스 경로가 아니라 테스트 메타데이터 경로입니다.
 
 CPH 단축키:
 
