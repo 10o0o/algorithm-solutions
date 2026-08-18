@@ -11,6 +11,6 @@
     "cph.general.useShortCodeForcesName": true,
     "cph.general.useShortAtCoderName": true,
     "cph.general.autoShowJudge": true,
-    "cph.companion.enableServer": true,
+    "cph.companion.enableServer": false,
     "cph.general.showLiveUserCount": false
 }

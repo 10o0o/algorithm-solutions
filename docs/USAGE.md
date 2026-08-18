@@ -9,8 +9,11 @@
 2. VS Code에서 문제 사이트에 맞는 워크스페이스를 엽니다.
    - AtCoder: `atcoder.code-workspace`
    - Codeforces: `codeforces.code-workspace`
-3. `Developer: Reload Window`를 한 번 실행합니다.
-4. LeetCode 사이드바에서 `Sign in to LeetCode`를 누르고 `Third Party` 로그인을 선택합니다.
+3. 탐색기의 첫 번째 폴더가 문제 사이트의 폴더인지 확인합니다.
+   - AtCoder: `AtCoder (CPH target)`
+   - Codeforces: `Codeforces (CPH target)`
+4. 저장소 폴더만 연 기존 창이 있다면 닫고, `Developer: Reload Window`를 한 번 실행합니다.
+5. LeetCode 사이드바에서 `Sign in to LeetCode`를 누르고 `Third Party` 로그인을 선택합니다.
 
 ## AtCoder / Codeforces
 
@@ -23,6 +26,12 @@
 CPH는 첫 번째 워크스페이스 폴더에 소스 파일을 생성합니다. 따라서 저장소 폴더를
 그대로 열지 말고 사이트에 맞는 `.code-workspace` 파일을 열어야 합니다.
 `cph.general.saveLocation`은 소스 경로가 아니라 테스트 메타데이터 경로입니다.
+저장소 폴더만 연 창에서는 실수로 루트에 문제가 생성되지 않도록 CPH 수신 서버가
+비활성화되어 있습니다. CPH 수신 서버는 위의 사이트별 워크스페이스에서만 활성화됩니다.
+
+문제 파일이 저장소 루트에 생성된다면 현재 창이 사이트별 워크스페이스가 아닌 것입니다.
+루트 창을 닫고 `File` → `Open Workspace from File...`에서 올바른 `.code-workspace`
+파일을 연 뒤 `Developer: Reload Window`를 실행합니다.
 
 CPH 단축키:
 
