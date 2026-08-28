@@ -1,32 +1,79 @@
+from math import isqrt
+
+
 class Solution:
-    def countOfPeaks(self, nums: list[int], queries: list[list[int]]) -> list[int]:
+    def validSubarrays(self, nums, k, queries):
         n = len(nums)
+        block = isqrt(n) + 1
 
-        def merge(a, b):
-            if a[0] == 0:
-                return b
-            if b[0] == 0:
-                return a
+        qs = []
 
-            a_len, a_pre, a_suf, a_zero = a
-            b_len, b_pre, b_suf, b_zero = b
+        for idx, (l, r) in enumerate(queries):
+            qs.append((l, r, idx))
 
-            length = a_len + b_len
+        qs.sort(
+            key=lambda q: (
+                q[0] // block,
+                q[1] if (q[0] // block) % 2 == 0 else -q[1],
+            )
+        )
 
-            if a_pre == b_len:
-                prefix = b_len + a_suf
+        freq = {}
+        distinct = 0
+        odd_count = 0
+
+        def add(x):
+            nonlocal distinct, odd_count
+
+            old = freq.get(x, 0)
+
+            if old == 0:
+                distinct += 1
+
+            if old % 2 == 0:
+                odd_count += 1
             else:
-                prefix = b_suf
+                odd_count -= 1
 
-            if b_suf == b_len:
-                suffix = b_len + a_suf
+            freq[x] = old + 1
+
+        def remove(x):
+            nonlocal distinct, odd_count
+
+            old = freq[x]
+
+            if old % 2 == 0:
+                odd_count += 1
             else:
-                suffix = b_suf
+                odd_count -= 1
 
-            zero_count = a_zero + b_zero + a_suf * b_pre
-            return {length, prefix, suffix, zero_count}
+            freq[x] = old - 1
 
-        return [0]
+            if freq[x] == 0:
+                distinct -= 1
 
+        ans = [False] * len(queries)
 
-Solution().countOfPeaks([1, 3, 2, 4], [[1]])
+        cur_l = 0
+        cur_r = -1
+
+        for l, r, idx in qs:
+            while cur_l > l:
+                cur_l -= 1
+                add(nums[cur_l])
+
+            while cur_r < r:
+                cur_r += 1
+                add(nums[cur_r])
+
+            while cur_l < l:
+                remove(nums[cur_l])
+                cur_l += 1
+
+            while cur_r > r:
+                remove(nums[cur_r])
+                cur_r -= 1
+
+            ans[idx] = distinct == k and odd_count == 0
+
+        return ans
