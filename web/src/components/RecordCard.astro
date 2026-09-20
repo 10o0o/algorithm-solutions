@@ -1,0 +1,18 @@
+---
+import type { PublicRecord } from '../lib/content';
+import { PLATFORMS, areaInfo } from '../lib/content';
+import { recordUrl, withBase } from '../lib/urls';
+interface Props { record: PublicRecord }
+const { record } = Astro.props;
+const label = record.kind === 'concept' ? areaInfo(record.area!).label : record.kind === 'problem' ? PLATFORMS.find((platform) => platform.id === record.platform)?.label : '대회 복기';
+const typeLabel = record.kind === 'concept' ? '개념' : record.kind === 'problem' ? '문제' : '대회';
+---
+<article class="record-card" data-record-key={record.key}>
+  <div class="card-meta"><span>{typeLabel} · {label}</span><time datetime={record.updated}>{record.updated.replaceAll('-', '.')}</time></div>
+  <h3><a href={recordUrl(record.kind, record.id)}>{record.title}</a></h3>
+  <p class="card-summary">{record.summary}</p>
+  <div class="card-bottom">
+    <div class="tags">{record.tags.slice(0, 3).map((tag) => <a href={`${withBase('/search/')}?tag=${encodeURIComponent(tag)}`}>#{tag}</a>)}</div>
+    <a class="card-arrow" href={recordUrl(record.kind, record.id)} aria-label={`${record.title} 읽기`}>↗</a>
+  </div>
+</article>

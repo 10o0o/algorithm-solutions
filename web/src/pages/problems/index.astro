@@ -1,0 +1,13 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import RecordCard from '../../components/RecordCard.astro';
+import { PLATFORMS, getProblems } from '../../lib/content';
+import { withBase } from '../../lib/urls';
+const problems = await getProblems();
+---
+<Layout title="문제 풀이">
+  <div class="page-width library-page"><div class="page-intro"><p class="eyebrow">PROBLEM NOTES</p><h1>풀이를 설명하고, 코드로 확인하기.</h1><p>문제의 핵심 조건과 불변식, 복잡도, 실제 제출 코드를 함께 읽습니다.</p></div>
+    <div class="filter-row">{PLATFORMS.map((platform) => <a class="primary-link" href={`${withBase('/search/')}?type=problem&platform=${platform.id}`}>{platform.label} 문제 찾기 →</a>)}</div>
+    <div class="results-heading"><h2>모든 문제 노트</h2><p class="quiet">{problems.length}개의 기록</p></div><div class="record-grid">{problems.map((record) => <RecordCard record={record} />)}</div>
+  </div>
+</Layout>

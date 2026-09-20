@@ -1,0 +1,4 @@
+interface:
+  display_name: "알고리즘 지식 정리"
+  short_description: "요청한 개념과 확인한 이해를 기존 지식 노트에 연결해 저장합니다"
+  default_prompt: "$record-algorithm-knowledge로 이번에 다룬 개념을 기존 노트에 정리해줘."

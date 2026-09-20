@@ -1,0 +1,19 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import RecordCard from '../../components/RecordCard.astro';
+import { areasFor, getConcepts } from '../../lib/content';
+const concepts = await getConcepts();
+const areas = areasFor(concepts);
+---
+<Layout title="개념 문서">
+  <div class="page-width library-page"><div class="page-intro"><p class="eyebrow">CONCEPT LIBRARY</p><h1>원리부터 다시 꺼내 읽기.</h1><p>분야를 따라 둘러보고, 실제 풀이로 이어지는 연결을 확인하세요.</p></div>
+    <div class="area-grid">{areas.map((area) => <a class="area-card" href={`?area=${area.id}`}><span class="area-symbol">{area.symbol}</span><div><h3>{area.label}</h3><p>{area.description}</p></div><span class="area-count">{concepts.filter((note) => note.area === area.id).length} ↗</span></a>)}</div>
+    <div class="results-heading"><h2>모든 개념</h2><p class="quiet">{concepts.length}개의 문서</p></div>
+    <div id="concept-list" class="record-grid">{concepts.map((record) => <div data-area={record.area}><RecordCard record={record} /></div>)}</div>
+    <noscript><p class="notice">분야 링크는 검색 페이지로 이동하지 않아도 전체 개념을 읽을 수 있습니다.</p></noscript>
+  </div>
+  <script>
+    const selected = new URLSearchParams(location.search).get('area');
+    if (selected) document.querySelectorAll<HTMLElement>('#concept-list > [data-area]').forEach((item) => { item.hidden = item.dataset.area !== selected; });
+  </script>
+</Layout>

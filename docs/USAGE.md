@@ -1,86 +1,201 @@
-# 문제 풀이 환경 사용법
+# 문제 풀이와 학습 기록 사용법
 
-이 문서는 VS Code에서 문제를 가져오고, 예제를 테스하고, 제출하는 방법을
-정리합니다.
+Linux 또는 VS Code Remote WSL 환경을 기준으로 합니다. 모든 터미널 명령은
+저장소 루트에서 실행합니다. 풀이 파일은 각 플랫폼 폴더에 그대로 저장합니다.
 
-## 처음 한 번만 할 일
+## 처음 한 번: Python과 워크스페이스
 
-1. 브라우저에 [Competitive Companion](https://github.com/jmerle/competitive-companion#install)을 설치합니다.
-2. VS Code에서 문제 사이트에 맞는 워크스페이스를 엽니다.
-   - AtCoder: `atcoder.code-workspace`
-   - Codeforces: `codeforces.code-workspace`
-3. 탐색기의 첫 번째 폴더가 문제 사이트의 폴더인지 확인합니다.
-   - AtCoder: `AtCoder (CPH target)`
-   - Codeforces: `Codeforces (CPH target)`
-4. 저장소 폴더만 연 기존 창이 있다면 닫고, `Developer: Reload Window`를 한 번 실행합니다.
-5. LeetCode 사이드바에서 `Sign in to LeetCode`를 누르고 `Third Party` 로그인을 선택합니다.
+`uv`가 없다면 [공식 설치 안내](https://docs.astral.sh/uv/getting-started/installation/)를 따릅니다.
 
-## AtCoder / Codeforces
+```bash
+uv sync --frozen
+uv run --frozen python scripts/setup_workspace.py
+```
 
-1. 브라우저에서 개별 문제 페이지를 엽니다.
-2. Competitive Companion의 초록색 `+` 버튼을 누릅니다.
-3. 선택한 사이트의 디렉터리에 Python 파일이 열리고 예제 입력과 출력이 CPH에 채워집니다.
-4. 코드를 작성하고 `Ctrl+Alt+B`로 모든 예제를 테스트합니다.
-5. 각 사이트에서 코드를 직접 제출합니다.
+`.python-version`은 CPython 3.12를 선택하며 `.venv`에 개발 도구를 설치합니다.
+YAML·Markdown 파서는 기록 검사에만 사용하므로 제출 코드에서 import하지 않습니다.
+시스템 Python이나 다른 학습 레포의 가상환경은 사용하지 않습니다.
 
-CPH는 첫 번째 워크스페이스 폴더에 소스 파일을 생성합니다. 따라서 저장소 폴더를
-그대로 열지 말고 사이트에 맞는 `.code-workspace` 파일을 열어야 합니다.
-`cph.general.saveLocation`은 소스 경로가 아니라 테스트 메타데이터 경로입니다.
-저장소 폴더만 연 창에서는 실수로 루트에 문제가 생성되지 않도록 CPH 수신 서버가
-비활성화되어 있습니다. CPH 수신 서버는 위의 사이트별 워크스페이스에서만 활성화됩니다.
+생성기는 `.local/atcoder.code-workspace`, `.local/codeforces.code-workspace`를 만듭니다.
+인터프리터와 템플릿을 먼저 검증하고, 내용이 같으면 파일을 다시 쓰지 않습니다.
+풀이·CPH 테스트·`main.py`·`ex.in`은 변경하지 않습니다.
+생성한 워크스페이스를 직접 편집한 설정은 재생성 시 교체되므로 공통 변경은 생성기에 반영합니다.
+과거 루트의 두 `.code-workspace` 파일은 이 방식으로 대체했습니다.
+다른 경로에 clone하거나 이동하면 `uv sync --frozen`부터 다시 실행합니다.
 
-문제 파일이 저장소 루트에 생성된다면 현재 창이 사이트별 워크스페이스가 아닌 것입니다.
-루트 창을 닫고 `File` → `Open Workspace from File...`에서 올바른 `.code-workspace`
-파일을 연 뒤 `Developer: Reload Window`를 실행합니다.
+## VS Code와 브라우저 연결
 
-CPH 단축키:
+1. 브라우저에 [Competitive Companion](https://github.com/jmerle/competitive-companion#install)을 준비합니다.
+   호환 확장이 이미 설치되어 있으면 중복 설치 전에 현재 확장으로 연결을 확인합니다.
+2. VS Code에서 **WSL에 설치된** CPH와 Python 확장을 확인합니다. 필요하면 다음을 실행합니다.
 
-- `Ctrl+Alt+B`: 모든 테스트케이스 실행
-- `Ctrl+Alt+D`: CPH 채점 화면 열기
+   ```bash
+   code --install-extension divyanshuagrawal.competitive-programming-helper
+   code --install-extension ms-python.python
+   ```
 
-CPH가 만드는 테스트 메타데이터는 `.cph/`에 저장되며 Git에는 포함되지
-않습니다.
+3. 사용할 플랫폼 워크스페이스 하나를 엽니다.
+
+   ```bash
+   code .local/atcoder.code-workspace
+   ```
+
+   Codeforces는 `.local/codeforces.code-workspace`를 엽니다.
+4. 첫 폴더가 `AtCoder (CPH target)` 또는 `Codeforces (CPH target)`인지 확인합니다.
+   CPH 수신 창을 여러 개 열지 않습니다. 일반 레포 창의 수신 서버는 꺼져 있습니다.
+5. 종료된 문제 페이지에서 Companion의 `+`를 누릅니다. 문제 파일과 샘플이 열리면 연결된 것입니다.
+
+CPH가 문제 소스를 저장하는 위치는 **첫 워크스페이스 폴더**입니다.
+`saveLocation`은 테스트 메타데이터 위치이며, 빈 값이면 소스 옆 `.cph/`를 사용합니다.
+템플릿 경로에는 CPH가 직접 처리하지 않는 `${workspaceFolder}`를 넣지 않습니다.
+생성기가 검증한 실제 경로를 로컬 워크스페이스에 기록합니다.
+
+문제가 루트에 생기면 첫 폴더와 열린 창을 확인합니다. 연결되지 않으면
+CPH의 확장 호스트, 중복 수신 창, 활성 상태를 확인하고 `Developer: Reload Window`를 실행합니다.
+Windows 브라우저와 WSL 사이에 연결이 되지 않으면 VS Code Ports에서 CPH 포트 27121 전달 상태도 확인합니다.
+
+## 매 문제: 가져오기·테스트·제출
+
+1. Companion으로 문제를 가져오고 생성된 Python 파일에 직접 풀이를 작성합니다.
+2. `Ctrl+Alt+B`로 예제를 모두 실행합니다. `Ctrl+Alt+D`로 CPH 화면을 열 수 있습니다.
+3. 경계값·반례를 CPH에 추가합니다. 여러 답이 가능한 문제는 출력 문자열 비교만으로
+   정답 여부를 판정하지 말고 조건이나 별도 checker를 확인합니다.
+4. 사이트에서 Python/PyPy 제출 언어를 선택하고 코드를 직접 제출합니다.
+5. 온라인 결과를 확인한 뒤 필요한 문제만 복기합니다. 로컬 샘플 통과는 AC가 아닙니다.
+
+기본 CPH 제한은 5초입니다. 문제별 제한과 머신 성능이 다르므로 로컬 실행 시간을
+저지 통과의 보장으로 사용하지 않습니다. RE는 오류 출력, TLE는 루프와 복잡도부터 확인합니다.
+디버그 출력은 `sys.stderr`로 보내 제출 출력과 구분합니다.
+Interactive 문제는 이 표준 입력·샘플 실행 흐름의 검증 대상이 아닙니다.
+
+### 단일·다중 테스트 템플릿
+
+기본은 `templates/python.py`의 `solve()`를 한 번 호출하는 형태입니다.
+입력 첫 줄이 테스트 개수 `t`인 문제에는 `templates/python-multi.py`를 사용합니다.
+Codeforces라고 모든 문제가 다중 테스트인 것은 아닙니다.
+
+```bash
+uv run --frozen python scripts/setup_workspace.py --platform codeforces --template multi
+```
+
+워크스페이스를 다시 열거나 Reload Window를 실행한 뒤 **새 문제를 가져올 때** 적용됩니다.
+기존 풀이 파일은 템플릿으로 덮어쓰지 않습니다. 이미 작성 중인 파일의 호출 구조는
+문제 입력 형식에 맞게 직접 수정합니다.
+
+단일 테스트로 되돌리기:
+
+```bash
+uv run --frozen python scripts/setup_workspace.py --platform codeforces --template single
+```
+
+### PyPy로 실행하기
+
+개발 도구는 CPython 3.12에 유지하고 풀이 실행용 PyPy를 별도로 준비합니다.
+
+```bash
+uv python install pypy@3.10
+uv venv --no-project --python pypy@3.10 .venv-pypy
+uv run --frozen python scripts/setup_workspace.py --platform codeforces --python .venv-pypy/bin/python
+```
+
+워크스페이스를 다시 열면 CPH가 PyPy를 직접 실행합니다. 다중 테스트도 함께 선택하려면
+같은 생성 명령에 `--template multi`를 추가합니다. CPython으로 되돌릴 때는 `--python` 없이 생성합니다.
+플랫폼별 버전은 [Codeforces](https://codeforces.com/blog/entry/121114)와
+[AtCoder](https://img.atcoder.jp/file/language-update/2025-10/language-list.html)의 언어 안내,
+실제 제출 화면에서 확인합니다. 로컬 빌드와 저지의 패치 버전·성능은 다를 수 있습니다.
+
+## 연결이 안 될 때와 테스트 보존
+
+CPH에 샘플 입력·출력을 직접 추가하거나 기존 방식으로 실행할 수 있습니다.
+아래 명령은 직접 준비한 `main.py`, `ex.in`을 사용하는 예시입니다.
+
+```bash
+uv run --frozen python main.py < ex.in
+.venv-pypy/bin/python main.py < ex.in
+```
+
+`main.py`, `ex.in`, `.cph/`, `.local/`, 두 가상환경은 Git에서 제외됩니다.
+기존 로컬 파일을 지우거나 초기화할 필요가 없습니다.
+
+CPH는 소스의 절대경로를 hash한 이름으로 테스트를 저장합니다. 소스를 옮기면 옛 테스트가
+화면에서 보이지 않을 수 있습니다. 재가져오면 테스트 목록이 샘플로 교체될 수 있으므로,
+**이동·재가져오기 전에 중요한 사용자 반례를 복기 문서에 입력·기대 출력으로 보존**합니다.
+이미 이동했다면 기존 `.cph/*.prob`의 내용을 확인해 필요한 사례를 수동 복구합니다.
+메타데이터를 자동 삭제하거나 성공 상태를 새로 만들어 채우지 않습니다.
 
 ## LeetCode
 
-1. LeetCode 사이드바에서 문제를 고릅니다.
-2. `Show Problem`을 선택하면 `leetcode/난이도/문제번호.문제이름.py`가 생성됩니다.
-3. 문제 설명은 별도의 Webview 탭으로 열립니다.
-4. 풀이 코드 아래의 `# @lc code=end` 근처에서 `Submit | Test | Description` 버튼을 사용합니다.
-5. `Test`로 사용자 테스트를 실행하고, 통과하면 `Submit`으로 제출합니다.
+LeetCode의 class/API 형식과 `@lc app=leetcode`, `# @lc code=start/end`는 그대로 사용합니다.
+CPH의 stdin 템플릿을 LeetCode 파일에 적용하지 않습니다.
 
-문제 설명 탭을 닫았을 때는 풀이 파일 아래쪽의 `Description`을 누르면 다시 열립니다.
-현재 설정은 `In Webview`이므로 문제 설명 전문을 Python 파일에 주석으로 저장하지
-않습니다. 파일 위쪽의 `@lc app=leetcode ...` 메타데이터를 이용해 필요할 때
-LeetCode에서 다시 불러옵니다. `@lc`로 시작하는 줄과 `@lc code=start`, `@lc code=end`는
-테스트와 제출에 필요하므로 삭제하지 않습니다.
+```bash
+code --install-extension leetcode.vscode-leetcode
+```
 
-### LeetCode Contest 문제
+확장에는 Node.js 실행기가 필요합니다. `LeetCode: Sign In`에서 로그인한 뒤 문제를 열고
+`Test`, `Submit`, `Description`을 사용합니다. 인증은 확장·브라우저에서 수행하며
+쿠키나 비밀번호를 이 저장소의 설정에 넣지 않습니다.
 
-진행 중인 Contest 문제는 VS Code 확장의 문제 목록에 바로 나타나지 않을 수 있으므로
-LeetCode 웹사이트에서 푸는 것이 가장 안정적입니다. Contest가 끝나고 문제가 일반 문제
-목록에 등록되면 다음 순서로 가져옵니다.
+다른 머신에서는 확장의 **사용자 설정**에서 다음을 확인합니다. LeetCode 설정은
+application scope이므로 `.vscode/settings.json`에 넣어 해결되는 것으로 가정하지 않습니다.
 
-1. LeetCode 사이드바에서 새로고침합니다.
-2. 검색 버튼으로 문제 번호 또는 정확한 제목을 검색합니다.
-3. 문제를 우클릭하고 `Show Problem`을 선택합니다.
+- `leetcode.nodePath`: 실제 Node.js 실행 파일.
+- `leetcode.workspaceFolder`: 이 저장소의 루트 경로.
+- `leetcode.defaultLanguage`: `python3`.
+- `leetcode.filePath.default.folder`: `leetcode/${difficulty}`.
+- `leetcode.filePath.default.filename`: `${id}.${kebab-case-name}.${ext}`.
+- `leetcode.showDescription`: `In Webview`.
+- `leetcode.editor.shortcuts`: `submit`, `test`, `description`.
 
-검색되지 않으면 명령 팔레트에서 `LeetCode: Delete Cache`를 실행한 뒤
-`Developer: Reload Window`로 다시 불러오고 검색합니다.
+새 Contest 문제는 확장 목록에 바로 없을 수 있으므로 브라우저에서 풀고, 일반 문제로
+등록된 뒤 검색합니다. 검색되지 않으면 새로고침과 `LeetCode: Delete Cache`를 확인합니다.
+로그인·제출 성공 여부는 실제 온라인 결과로 확인합니다.
 
-### LeetCode 버튼이 보이지 않을 때
+## 학습과 기록
 
-1. 풀이 파일의 맨 아래 `# @lc code=end`까지 이동합니다.
-2. 파일 안에 `@lc app=leetcode` 메타데이터가 남아 있는지 확인합니다.
-3. `Developer: Reload Window`를 실행합니다.
+`오늘 학습 시작` 또는 `계속`은 [STATE](../STATE.md)의 현재 범위를 재개합니다.
+직접 시도한 코드·설명을 바탕으로 힌트와 리뷰를 받고, `정리해줘`라고 요청하면
+확인된 이해나 요청한 기초 참고 자료를 함께 기록합니다. 같은 주제는 기존 노트를 보완합니다.
+`오늘 학습 종료`는 다음 행동을 제안하며, `STATE 반영해`라고 요청하면 재개 위치를 저장합니다.
 
-이 저장소에서는 CodeLens와 `Submit`, `Test`, `Description` 버튼이 모두 활성화되어
-있습니다.
+### 내장 스킬 사용하기
 
-`leetcode.com` 로그인 방식이 바뀌어 일반 아이디와 비밀번호 로그인은 잘 동작하지 않을
-수 있습니다. 먼저 GitHub 같은 제3자 계정을 LeetCode 계정에 연결한 뒤 `Third Party`
-로그인을 사용하는 것이 권장됩니다.
+스킬은 저장소의 `.agents/skills/`에 포함되어 있으며 자연어 요청과 `$스킬명` 모두 지원합니다.
 
-## 보안
+| 평소 요청 | 스킬 |
+| --- | --- |
+| 오늘 학습 시작 / 계속 / 힌트 줘 | [study-algorithms](../.agents/skills/study-algorithms/SKILL.md) |
+| 이 개념 정리해줘 / 배운 지식 저장해줘 | [record-algorithm-knowledge](../.agents/skills/record-algorithm-knowledge/SKILL.md) |
+| 이 문제 복기해줘 | [review-algorithm-problem](../.agents/skills/review-algorithm-problem/SKILL.md) |
+| 이번 대회 복기해줘 | [review-algorithm-contest](../.agents/skills/review-algorithm-contest/SKILL.md) |
 
-문제 풀이 파일에는 비밀번호, 세션 쿠키, API 키를 저장하지 않습니다.
+예를 들어 `$record-algorithm-knowledge 이분 탐색의 경계 조건을 정리해줘`라고 요청합니다.
+정리 요청은 파일 저장까지 포함하므로 초안 승인을 다시 요구하지 않습니다.
+단순 설명, `이해했어`, `오늘 학습 종료`만으로 노트를 작성하지 않습니다.
+일상적인 기록 스킬은 커밋·push·배포를 자동 수행하지 않습니다.
+새 스킬이 표시되지 않으면 이 저장소에서 새 Codex 세션을 시작합니다.
+
+### 기록 위치
+
+- 문제 복기: `templates/problem-note.md`를 코드 옆 같은 이름의 `.md`에 복사하고 내용을 채웁니다.
+  `solution`은 **그 노트 기준** 상대경로입니다. 예: `abc470a.md` 옆 코드는 `abc470a.py`.
+- 재사용할 개념: [knowledge 작성법](../knowledge/README.md)을 따릅니다.
+- 대회 전체의 시간 배분·미해결 이유: [contests 작성법](../contests/README.md)을 따릅니다.
+- 출처 전문을 복제하지 않고 원문 URL과 자신의 설명을 연결합니다.
+- 도움 사용 여부, 제출 결과, 독립 재풀이 결과는 관찰한 경우에만 기록합니다.
+
+## 저장소 도구 검사
+
+```bash
+uv run --frozen python -m unittest discover -s tests -v
+uv run --frozen python scripts/validate_notes.py
+uv lock --check
+git diff --check
+```
+
+검사기는 `knowledge/`, `contests/`, 플랫폼 폴더의 실제 Markdown 기록을 읽습니다.
+README와 기록 템플릿은 기본 검사에서 제외합니다. 특정 완성 노트는 경로 인자로 검사할 수 있습니다.
+메타데이터·로컬 파일 링크만 검사하며 외부 사이트 로그인, 링크 상태 확인, 정답 판정은 하지 않습니다.
+실제 노트가 0개여도 성공할 수 있으며, 그것은 학습 완료를 의미하지 않습니다.
+
+웹의 실행·검색 확인·배포 절차는 [웹 사용법](WEB.md)을 참고합니다.

@@ -1,0 +1,7 @@
+---
+interface Heading { depth: number; slug: string; text: string }
+interface Props { headings: Heading[]; mobile?: boolean }
+const toc = Astro.props.headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
+const { mobile = false } = Astro.props;
+---
+{mobile ? <details class="mobile-toc" data-pagefind-ignore><summary>이 문서의 목차</summary><nav aria-label="모바일 목차">{toc.map((heading) => <a class:list={{ subheading: heading.depth === 3 }} href={`#${heading.slug}`}>{heading.text}</a>)}</nav></details> : <aside class="toc" aria-label="문서 목차" data-pagefind-ignore><div class="toc-inner"><p class="eyebrow">ON THIS PAGE</p><nav>{toc.map((heading) => <a class:list={{ subheading: heading.depth === 3 }} href={`#${heading.slug}`}>{heading.text}</a>)}</nav><a class="back-top" href="#main">맨 위로 ↑</a></div></aside>}

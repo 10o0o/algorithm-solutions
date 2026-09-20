@@ -1,0 +1,36 @@
+---
+import '../styles/global.css';
+import 'katex/dist/katex.min.css';
+import { withBase } from '../lib/urls';
+interface Props { title?: string; description?: string }
+const { title, description = '알고리즘 개념과 문제 풀이를 연결해 다시 읽는 개인 학습 기록.' } = Astro.props;
+const pathname = Astro.url.pathname;
+---
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="color-scheme" content="light dark" />
+    <title>{title ? `${title} · Algorithm Learning Lab` : 'Algorithm Learning Lab · 풀이를 연결하는 서재'}</title>
+    <script is:inline>try { const theme = localStorage.getItem('theme'); if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme; } catch {}</script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+    <header class="site-header"><div class="header-inner">
+      <a class="brand" href={withBase('/')} aria-label="Algorithm Learning Lab 홈"><span class="brand-mark" aria-hidden="true">A<span>·</span></span><span>Algorithm Learning Lab<small>풀이를 연결하는 서재</small></span></a>
+      <div class="header-actions">
+        <nav class="desktop-nav" aria-label="주 탐색"><a class:list={{ active: pathname.includes('/knowledge/') }} href={withBase('/knowledge/')}>개념</a><a class:list={{ active: pathname.includes('/problems/') }} href={withBase('/problems/')}>문제</a><a class:list={{ active: pathname.includes('/contests/') }} href={withBase('/contests/')}>대회</a><a class:list={{ active: pathname.includes('/search/') }} href={withBase('/search/')}>검색</a><a class:list={{ active: pathname.includes('/about/') }} href={withBase('/about/')}>소개</a></nav>
+        <button class="theme-toggle icon-button" aria-label="색상 테마 변경" title="색상 테마 변경"><svg class="sun-icon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg></button>
+        <details class="mobile-nav"><summary aria-label="메뉴 열기">메뉴 <span aria-hidden="true">☰</span></summary><nav aria-label="모바일 탐색"><a href={withBase('/knowledge/')}>개념</a><a href={withBase('/problems/')}>문제</a><a href={withBase('/contests/')}>대회</a><a href={withBase('/search/')}>검색</a><a href={withBase('/about/')}>소개</a></nav></details>
+      </div>
+    </div></header>
+    <main id="main"><slot /></main>
+    <footer class="site-footer"><div><a href={withBase('/')}>Algorithm Learning Lab</a><p>풀고, 설명하고, 서로 연결합니다.</p></div><a href="https://github.com/10o0o/algorithm-solutions">GitHub 저장소 ↗</a></footer>
+    <script>
+      document.querySelector('.theme-toggle')?.addEventListener('click', () => { const root = document.documentElement; const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches; root.dataset.theme = dark ? 'light' : 'dark'; try { localStorage.setItem('theme', root.dataset.theme); } catch {} });
+      document.addEventListener('keydown', (event) => { if (event.key === 'Escape') document.querySelectorAll<HTMLDetailsElement>('.mobile-nav[open]').forEach((details) => { details.open = false; details.querySelector('summary')?.focus(); }); });
+    </script>
+  </body>
+</html>

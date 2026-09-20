@@ -1,0 +1,7 @@
+---
+import type { PublicRecord } from '../lib/content';
+import RecordCard from './RecordCard.astro';
+interface Props { records: PublicRecord[] }
+const { records } = Astro.props;
+---
+{records.length > 0 && <section class="connections-section" data-pagefind-ignore><div class="section-heading"><div><p class="eyebrow">FOLLOW THE LINKS</p><h2>연결된 기록</h2></div><p class="quiet">이 문서가 가리키거나, 이 문서를 가리키는 기록입니다.</p></div><div class="record-grid">{records.map((record) => <RecordCard record={record} />)}</div></section>}

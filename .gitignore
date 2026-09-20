@@ -7,6 +7,21 @@
 __pycache__/
 *.py[cod]
 .venv/
+.venv-pypy/
+
+# Generated machine-specific workspaces and local experiments
+.local/
+
+# Static website dependencies, generated content and browser-test artifacts
+web/node_modules/
+web/dist/
+web/.astro/
+web/test-results/
+web/playwright-report/
+
+# Current scratch files stay local; keep their contents when setting up
+/main.py
+/ex.in
 
 # OS/editor noise
 .DS_Store

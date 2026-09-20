@@ -1,0 +1,11 @@
+---
+import { withBase } from '../lib/urls';
+interface Props { large?: boolean }
+const { large = false } = Astro.props;
+---
+<form class:list={['search-form', { large }]} action={withBase('/search/')} role="search">
+  <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>
+  <label class="sr-only" for="home-search">검색어</label>
+  <input id="home-search" name="q" type="search" placeholder="개념·문제·대회 노트 검색" autocomplete="off" />
+  <button type="submit">검색 <span aria-hidden="true">→</span></button>
+</form>

@@ -1,0 +1,18 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import Layout from '../../../layouts/Layout.astro';
+import ArticleToc from '../../../components/ArticleToc.astro';
+import Connections from '../../../components/Connections.astro';
+import { areaInfo, getRecords, relatedRecords, type PublicRecord } from '../../../lib/content';
+import { repositoryFileUrl, withBase } from '../../../lib/urls';
+export async function getStaticPaths() {
+  const records = await getRecords();
+  return records.filter((record) => record.kind === 'concept').map((record) => ({ params: { area: record.area!, slug: record.id.split('/').slice(1).join('/') } }));
+}
+const records = await getRecords();
+const record = records.find((item) => item.kind === 'concept' && item.id === `${Astro.params.area}/${Astro.params.slug}`) as PublicRecord;
+const connected = relatedRecords(record, records);
+const { Content, headings } = await render(record.entry as CollectionEntry<'knowledge'>);
+const area = areaInfo(record.area!);
+---
+<Layout title={record.title} description={record.summary}><div class="page-width article-shell"><nav class="breadcrumbs" aria-label="현재 위치"><a href={withBase('/knowledge/')}>개념</a><span>/</span><a href={`${withBase('/knowledge/')}?area=${record.area}`}>{area?.label}</a></nav><div class="article-grid"><article class="public-article" data-pagefind-body><header class="article-header"><p class="eyebrow" data-pagefind-filter="type">개념</p><span hidden data-pagefind-filter="area">{record.area}</span><h1 data-pagefind-meta="title">{record.title}</h1><div class="article-meta" data-pagefind-ignore><span>최근 수정 <time datetime={record.updated}>{record.updated.replaceAll('-', '.')}</time></span><span>·</span><a href={repositoryFileUrl(record.sourcePath)}>원문 보기 ↗</a></div><div class="tags" data-pagefind-ignore>{record.tags.map((tag) => <a href={`${withBase('/search/')}?tag=${encodeURIComponent(tag)}`} data-pagefind-filter="tag">#{tag}</a>)}</div></header><ArticleToc headings={headings} mobile /><div class="prose"><Content /></div></article><ArticleToc headings={headings} /></div><Connections records={connected} /></div></Layout>

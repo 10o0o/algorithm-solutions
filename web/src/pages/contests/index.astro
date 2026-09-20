@@ -1,0 +1,7 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import RecordCard from '../../components/RecordCard.astro';
+import { getContests } from '../../lib/content';
+const contests = await getContests();
+---
+<Layout title="대회 복기"><div class="page-width library-page"><div class="page-intro"><p class="eyebrow">CONTEST REVIEWS</p><h1>대회에서 확인한 선택을 복기하기.</h1><p>실제 시도와 시간 배분, 업솔빙에서 배운 점을 남깁니다.</p></div>{contests.length ? <><div class="results-heading"><h2>대회 기록</h2><p class="quiet">{contests.length}개의 기록</p></div><div class="record-grid">{contests.map((record) => <RecordCard record={record} />)}</div></> : <div class="empty-state"><span aria-hidden="true">○</span><h2>아직 공개한 대회 복기가 없습니다.</h2><p>실전이 끝난 뒤 직접 확인한 내용부터 차례로 기록합니다.</p></div>}</div></Layout>
