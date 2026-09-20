@@ -27,7 +27,7 @@ LeetCode의 로그인·온라인 테스트·제출은 이번에 실행하지 않
 - CPython과 PyPy에서 단일·다중 테스트 템플릿을 각각 임시 구현으로 실행했다.
   네 조합 모두 기대 출력을 얻었으며 0과 음수 입력도 포함했다. 이 코드는 학습 풀이로 저장하지 않았다.
 - `uv lock --check`, `git diff --check`가 통과했다. GitHub Actions 검사 설정을 추가했으며
-  원격 Actions 실행 결과는 아직 없다.
+  실제 원격 실행 결과는 아래 2차 배포 항목에 기록했다.
 - 1차 구축 당시 실제 학습 노트는 작성하지 않았다. 기본 기록 검사의 `0 note(s)`는 정상이며
   온라인 AC·독립 해결·숙달을 의미하지 않는다.
 - 별도 임시 체크아웃에서 세 기록 템플릿에 실제 형식의 메타데이터와 더미 코드 경로를
@@ -115,5 +115,19 @@ Astro의 빈 `contests` 컬렉션 안내는 현재 기록이 없는 상태를 �
 로컬 브라우저 검사는 임시 디렉터리에 준비한 시스템 라이브러리·폰트를 사용했고,
 GitHub Actions는 `playwright install --with-deps chromium`과 한글 폰트 설치로 환경을 준비한다.
 
-GitHub Pages를 Actions 방식으로 활성화했다. 공개 배포와 실제 주소 검증은
-이 변경의 Actions 실행 후 아래에 이어 기록한다.
+## 공개 배포 확인
+
+GitHub Pages를 Actions 방식으로 활성화하고 1·2차 변경을 `main`에 커밋·push했다.
+첫 구축 커밋 `2c730a6`의 [Actions 실행](https://github.com/10o0o/algorithm-solutions/actions/runs/35486222483)에서
+`check`, `frontend`, `deploy`가 모두 성공했다.
+
+2026-09-20에 [공개 사이트](https://10o0o.github.io/algorithm-solutions/)를 실제 Chromium으로 열어 확인했다.
+
+- 홈 HTTP 200, 한국어 `누적` 검색과 `BFS` 검색·유형·분야·태그의 복합 필터, 플랫폼 필터가 동작했다.
+  검색어와 필터가 새로고침 뒤에도 URL에 유지됐다.
+- 점이 포함된 1422 문제 주소에서 Python 원문 일치, 수식, 관련 개념 링크와 다크 모드 유지를 확인했다.
+  원본 코드에만 있는 `cnts`는 검색 결과에 나오지 않았다.
+- 빈 대회 목록, 모바일 메뉴·가로 폭, JavaScript를 끈 본문 읽기를 확인했다.
+  검사 중 공개 사이트의 실패한 자원 요청과 JavaScript 실행 오류는 없었다.
+
+이 결과는 웹 배포 검증이며 위의 Companion 브라우저 버튼·온라인 저지 제출 미확인 상태를 바꾸지 않는다.

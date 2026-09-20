@@ -5,7 +5,8 @@
 - 목표: Codeforces Candidate Master 1900 이상, 장기 Grandmaster 2400 이상.
 - 출발점: AtCoder 민트 전후라는 자기평가. Codeforces rating과 실전 기준선은 아직 확인하지 않았다.
 - 현재 범위: 첫 4주 운영 점검 준비. 주 9–15시간의 배분과 주제 우선순위는 [로드맵](ROADMAP.md)을 따른다.
-- 환경: CPython·PyPy, CPH 워크스페이스 생성기, 기록 검사기와 [학습 웹](docs/WEB.md)을 준비했다.
+- 환경: CPython·PyPy, CPH 워크스페이스 생성기, 기록 검사기를 준비했고
+  [학습 웹](https://10o0o.github.io/algorithm-solutions/)을 배포했다. 로컬 실행은 [웹 사용법](docs/WEB.md)을 따른다.
   [검증 기록](docs/VALIDATION.md)에 완료 항목과 Companion 브라우저 버튼·온라인 제출의 미확인 상태를 구분했다.
 - 참고 자료: [기초 개념 5개](knowledge/README.md)와 기존 LeetCode 코드 설명 3개를 추가했다.
   이미 아는 기초를 다시 수강할 필요 없이 필요한 조건·경계·구현을 찾아 읽는다.
