@@ -27,7 +27,7 @@ test('combined search and URL-persisted filters work', async ({page}) => {
   expect(await visibleCards.count()).toBeGreaterThanOrEqual(2);
   for(const key of await visibleCards.evaluateAll((items)=>items.map((item)=>item.getAttribute('data-record-key')))) expect(key).toMatch(/^concept:graphs\//u);
   await expect(page.locator('#record-results>[data-record-key="concept:search/binary-search"]')).toBeHidden();
-  await page.getByLabel('검색어').fill('BFS'); await page.getByRole('button',{name:/검색/}).click(); await expect(page.locator('.search-result').first()).toBeVisible({timeout:15000}); await expect(page.getByLabel('정렬')).toBeDisabled();
+  await page.getByLabel('검색어').fill('BFS'); await page.getByRole('button',{name:/검색/}).click(); await expect(page.locator('.search-result').first()).toBeVisible({timeout:15000}); await expect(page.getByLabel('정렬', { exact: true })).toBeDisabled();
   await page.goto(url('/search/?type=problem&platform=leetcode&sort=title')); await expect(page.getByLabel('플랫폼')).toHaveValue('leetcode'); const titles=await page.locator('#record-results>[data-record-key]:not([hidden]) h3').allTextContents(); expect(titles).toEqual([...titles].sort((a,b)=>a.localeCompare(b,'ko')));
 });
 
