@@ -28,7 +28,7 @@ export function conceptUrl(id: string, base = import.meta.env.BASE_URL): string 
 }
 export function problemUrl(id: string, base = import.meta.env.BASE_URL): string {
   const parts = safeSegments(id, 'problem');
-  if (parts.length < 2 || !['atcoder', 'codeforces', 'leetcode'].includes(parts[0])) throw new Error(`Invalid problem id: ${id}`);
+  if (parts.length < 2 || !['atcoder', 'codeforces', 'cses', 'leetcode'].includes(parts[0])) throw new Error(`Invalid problem id: ${id}`);
   return withBase(`problems/${parts.map(encodeURIComponent).join('/')}/`, base);
 }
 export function contestUrl(id: string, base = import.meta.env.BASE_URL): string {
@@ -55,7 +55,7 @@ function repoPathToRecord(relative: string, base: string): string | undefined {
   const slash = relative.split(path.sep).join('/');
   if (/(?:^|\/)(?:README|template)\.md$/iu.test(slash)) return undefined;
   if (/^knowledge\/[^/]+\/[^/]+\.md$/u.test(slash)) return conceptUrl(slash.slice(10, -3), base);
-  if (/^(atcoder|codeforces|leetcode)\/.+\.md$/u.test(slash)) return problemUrl(slash.slice(0, -3), base);
+  if (/^(atcoder|codeforces|cses|leetcode)\/.+\.md$/u.test(slash)) return problemUrl(slash.slice(0, -3), base);
   if (/^contests\/[^/]+\.md$/u.test(slash) && !/(?:README|template)\.md$/u.test(slash)) return contestUrl(slash.slice(9, -3), base);
   return undefined;
 }

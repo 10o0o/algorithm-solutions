@@ -28,7 +28,8 @@ SITE_BASE=/algorithm-solutions/ npm run preview
 ## 콘텐츠 연결
 
 개념은 `knowledge/`, 문제 설명은 플랫폼 코드 옆 Markdown, 대회 복기는 `contests/`에서
-직접 읽습니다. 별도의 웹용 문서 복사본은 만들지 않습니다. 복기 문서가 있는 문제만
+직접 읽습니다. 문제 플랫폼은 `atcoder/`, `codeforces/`, `cses/`, `leetcode/`입니다.
+별도의 웹용 문서 복사본은 만들지 않습니다. 복기 문서가 있는 문제만
 웹에 표시하고, 연결된 Python 코드는 원문 그대로 읽어 보여 줍니다. 나머지 코드는
 [GitHub 저장소](https://github.com/10o0o/algorithm-solutions)에서 볼 수 있습니다.
 

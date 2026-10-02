@@ -10,6 +10,7 @@ describe('public URLs', () => {
     expect(conceptUrl('graphs/bfs', '/algorithm-solutions/')).toBe('/algorithm-solutions/knowledge/graphs/bfs/');
     expect(problemUrl('leetcode/easy/1422.maximum-score-after-splitting-a-string', '/algorithm-solutions/')).toBe('/algorithm-solutions/problems/leetcode/easy/1422.maximum-score-after-splitting-a-string/');
     expect(problemUrl('codeforces/4A_Watermelon', '/algorithm-solutions/')).toBe('/algorithm-solutions/problems/codeforces/4A_Watermelon/');
+    expect(problemUrl('cses/Range_Update_Queries', '/algorithm-solutions/')).toBe('/algorithm-solutions/problems/cses/Range_Update_Queries/');
   });
 });
 
@@ -20,16 +21,19 @@ describe('publication boundary', () => {
     try {
       await mkdir(path.join(root, 'knowledge', 'basics'), { recursive:true });
       await mkdir(path.join(root, 'leetcode', 'easy'), { recursive:true });
+      await mkdir(path.join(root, 'cses'), { recursive:true });
       await mkdir(path.join(root, 'private'), { recursive:true });
       const source = path.join(root, 'knowledge', 'basics', 'source.md');
       await writeFile(source, '# source\n');
       await writeFile(path.join(root, 'knowledge', 'basics', 'target.md'), '# target\n');
       await writeFile(path.join(root, 'leetcode', 'easy', 'answer.py'), 'print(1)\n');
+      await writeFile(path.join(root, 'cses', 'Range_Update_Queries.md'), '# CSES test fixture\n');
       await writeFile(path.join(root, 'main.py'), 'scratch\n');
       await writeFile(path.join(root, 'private', 'secret.md'), 'secret\n');
       await writeFile(outside, 'outside\n');
       await symlink(path.join(root, 'leetcode', 'easy', 'answer.py'), path.join(root, 'knowledge', 'basics', 'answer-link.py'));
       expect(resolveContentLink('./target.md', source, root, '/lab')).toBe('/lab/knowledge/basics/target/');
+      expect(resolveContentLink('../../cses/Range_Update_Queries.md', source, root, '/lab')).toBe('/lab/problems/cses/Range_Update_Queries/');
       expect(resolveContentLink('../../leetcode/easy/answer.py', source, root)).toContain('github.com/10o0o/algorithm-solutions/blob/main/leetcode/easy/answer.py');
       expect(resolveContentLink('data:image/png;base64,AAAA', source, root)).toBe('data:image/png;base64,AAAA');
       expect(() => resolveContentLink('../../private/secret.md', source, root)).toThrow(/prohibited/);

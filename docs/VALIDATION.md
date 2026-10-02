@@ -131,3 +131,23 @@ GitHub Pages를 Actions 방식으로 활성화하고 1·2차 변경을 `main`에
   검사 중 공개 사이트의 실패한 자원 요청과 JavaScript 실행 오류는 없었다.
 
 이 결과는 웹 배포 검증이며 위의 Companion 브라우저 버튼·온라인 저지 제출 미확인 상태를 바꾸지 않는다.
+
+## CSES 저장소 설정 추가 · 2026-10-02
+
+- 생성기에 CSES를 추가해 `.local/cses.code-workspace`의 첫 폴더가 `cses/`가 되도록 했다.
+  실제 생성과 반복 실행의 `unchanged`, 단일 테스트 템플릿·실행기 경로·수신 설정을 확인했다.
+- Python 자동 테스트 28개, 실제 노트 10개, `uv lock --check`, `git diff --check`를 통과했다.
+  CSES만 생성, 기존 세 플랫폼 풀이·CPH 데이터 및 루트 scratch 파일 보존,
+  CSES 노트 발견·소스 연결 검사를 포함한다. 안내 문서 5개의 로컬 링크도 확인했다.
+- `.local/cses.code-workspace`와 `cses/.cph/*.prob`의 Git 제외를 확인했다.
+  기존 풀이·학습 노트·STATE·템플릿은 변경하지 않았으며 CSES 정답 코드를 새로 만들지 않았다.
+- Astro 검사 오류·경고·힌트 0개, 웹 단위 테스트 5개, `/algorithm-solutions/` 빌드를 통과했다.
+  정적 페이지 17개와 실제 노트 10개의 검색 색인을 생성했다.
+  CSES 경로·개념 역링크를 검사하고 데스크톱·모바일 CSES 필터 회귀 검사를 추가했다.
+- 이 클라우드에서는 Playwright 브라우저 다운로드가 유효한 ZIP을 반환하지 않았고,
+  설치된 Chromium도 `socket() failed: Operation not permitted`로 실행되지 않았다.
+  따라서 로컬 브라우저 10개 검사는 검증 완료로 세지 않는다.
+  원격 브라우저 검사는 기존 [GitHub Actions](https://github.com/10o0o/algorithm-solutions/actions)에서 확인한다.
+- CPH·Companion 공식 소스로 CSES URL, 제목 기반 파일명, 첫 폴더, 27121 포트,
+  템플릿 치환과 메타데이터 저장 방식을 대조했다. 링크는 [CSES 안내](../cses/README.md#지원-근거)에 있다.
+  사용자 PC의 확장 설치·브라우저 버튼·수신 연결·온라인 제출은 이번에 실행하지 않았다.

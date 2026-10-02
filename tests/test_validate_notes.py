@@ -116,6 +116,27 @@ class ValidateNotesTests(unittest.TestCase):
         errors = self.errors("atcoder/abc001/a.md", self.problem(solution="a.py"))
         self.assertEqual([], errors)
 
+    def test_cses_notes_are_discovered_and_require_a_real_solution(self) -> None:
+        self.write("cses/Range_Update_Queries.py", "# learner solution\n")
+        note = self.write(
+            "cses/Range_Update_Queries.md",
+            self.problem(
+                solution="Range_Update_Queries.py",
+                url="https://cses.fi/problemset/task/1651/",
+            ),
+        )
+        self.write("cses/README.md", "# CSES setup\n")
+        validator = load_validator()
+        paths, discovery_errors = validator.default_paths(self.root)
+        self.assertEqual([note], paths)
+        self.assertEqual([], discovery_errors)
+        self.assertEqual([], validator.validate_file(note, self.root))
+        (self.root / "cses/Range_Update_Queries.py").unlink()
+        self.assertTrue(any(
+            "solution" in error and "does not exist" in error
+            for error in validator.validate_file(note, self.root)
+        ))
+
     def test_problem_solution_must_be_a_real_platform_python_file(self) -> None:
         self.write("knowledge/helper.py", "print(0)\n")
         outside_platform = self.errors(

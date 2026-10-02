@@ -31,6 +31,16 @@ test('combined search and URL-persisted filters work', async ({page}) => {
   await page.goto(url('/search/?type=problem&platform=leetcode&sort=title')); await expect(page.getByLabel('플랫폼')).toHaveValue('leetcode'); const titles=await page.locator('#record-results>[data-record-key]:not([hidden]) h3').allTextContents(); expect(titles).toEqual([...titles].sort((a,b)=>a.localeCompare(b,'ko')));
 });
 
+test('CSES platform filter is linked and survives reload without seeded solutions', async ({page}) => {
+  await page.goto(url('/problems/'));
+  await page.getByRole('link',{name:'CSES 문제 찾기 →'}).click();
+  await expect(page).toHaveURL(/type=problem&platform=cses/u);
+  await expect(page.getByLabel('플랫폼')).toHaveValue('cses');
+  await page.reload();
+  await expect(page.getByLabel('플랫폼')).toHaveValue('cses');
+  for(const key of await page.locator('#record-results>[data-record-key]:not([hidden])').evaluateAll((items)=>items.map((item)=>item.getAttribute('data-record-key')))) expect(key).toMatch(/^problem:cses\//u);
+});
+
 test('math, fenced code, internal links and JavaScript-free reading remain available', async ({page,browser}) => {
   await page.goto(url('/knowledge/graphs/bfs/')); await expect(page.locator('.prose pre code').first()).toBeVisible(); await expect(page.locator('.public-article a[href*="/problems/"]').first()).toBeVisible();
   const katexCount=await page.locator('.katex').count(); expect(katexCount).toBeGreaterThan(0);

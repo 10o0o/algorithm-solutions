@@ -14,10 +14,11 @@ import sys
 import tempfile
 
 
-PLATFORMS = ("atcoder", "codeforces")
+PLATFORMS = ("atcoder", "codeforces", "cses")
 PLATFORM_NAMES = {
     "atcoder": "AtCoder (CPH target)",
     "codeforces": "Codeforces (CPH target)",
+    "cses": "CSES (CPH target)",
 }
 EXTENSION_RECOMMENDATIONS = [
     "divyanshuagrawal.competitive-programming-helper",
@@ -43,7 +44,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--platform",
         choices=PLATFORMS,
-        help="generate only one platform workspace (default: both)",
+        help="generate only one platform workspace (default: all platforms)",
     )
     parser.add_argument(
         "--template",

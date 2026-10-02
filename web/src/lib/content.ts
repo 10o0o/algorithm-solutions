@@ -18,6 +18,7 @@ export const AREAS = [
 export const PLATFORMS = [
   { id: 'atcoder', label: 'AtCoder' },
   { id: 'codeforces', label: 'Codeforces' },
+  { id: 'cses', label: 'CSES' },
   { id: 'leetcode', label: 'LeetCode' },
 ] as const;
 export interface AreaInfo { id:string; label:string; description:string; symbol:string }
@@ -80,7 +81,7 @@ function keyFromSource(relative: string): string | undefined {
   const slash = relative.split(path.sep).join('/');
   if (/(?:^|\/)(?:README|template)\.md$/iu.test(slash)) return undefined;
   if (/^knowledge\/[^/]+\/[^/]+\.md$/u.test(slash)) return `concept:${slash.slice(10, -3)}`;
-  if (/^(atcoder|codeforces|leetcode)\/.+\.md$/u.test(slash)) return `problem:${slash.slice(0, -3)}`;
+  if (/^(atcoder|codeforces|cses|leetcode)\/.+\.md$/u.test(slash)) return `problem:${slash.slice(0, -3)}`;
   if (/^contests\/[^/]+\.md$/u.test(slash) && !/(?:README|template)\.md$/u.test(slash)) return `contest:${slash.slice(9, -3)}`;
   return undefined;
 }

@@ -16,7 +16,8 @@ uv run --frozen python scripts/setup_workspace.py
 YAML·Markdown 파서는 기록 검사에만 사용하므로 제출 코드에서 import하지 않습니다.
 시스템 Python이나 다른 학습 레포의 가상환경은 사용하지 않습니다.
 
-생성기는 `.local/atcoder.code-workspace`, `.local/codeforces.code-workspace`를 만듭니다.
+생성기는 `.local/atcoder.code-workspace`, `.local/codeforces.code-workspace`,
+`.local/cses.code-workspace`를 만듭니다.
 인터프리터와 템플릿을 먼저 검증하고, 내용이 같으면 파일을 다시 쓰지 않습니다.
 풀이·CPH 테스트·`main.py`·`ex.in`은 변경하지 않습니다.
 생성한 워크스페이스를 직접 편집한 설정은 재생성 시 교체되므로 공통 변경은 생성기에 반영합니다.
@@ -40,8 +41,9 @@ YAML·Markdown 파서는 기록 검사에만 사용하므로 제출 코드에서
    code .local/atcoder.code-workspace
    ```
 
-   Codeforces는 `.local/codeforces.code-workspace`를 엽니다.
-4. 첫 폴더가 `AtCoder (CPH target)` 또는 `Codeforces (CPH target)`인지 확인합니다.
+   Codeforces는 `.local/codeforces.code-workspace`, CSES는 `.local/cses.code-workspace`를 엽니다.
+4. 첫 폴더가 해당 플랫폼의 `AtCoder (CPH target)`, `Codeforces (CPH target)` 또는
+   `CSES (CPH target)`인지 확인합니다.
    CPH 수신 창을 여러 개 열지 않습니다. 일반 레포 창의 수신 서버는 꺼져 있습니다.
 5. 종료된 문제 페이지에서 Companion의 `+`를 누릅니다. 문제 파일과 샘플이 열리면 연결된 것입니다.
 
@@ -53,6 +55,9 @@ CPH가 문제 소스를 저장하는 위치는 **첫 워크스페이스 폴더**
 문제가 루트에 생기면 첫 폴더와 열린 창을 확인합니다. 연결되지 않으면
 CPH의 확장 호스트, 중복 수신 창, 활성 상태를 확인하고 `Developer: Reload Window`를 실행합니다.
 Windows 브라우저와 WSL 사이에 연결이 되지 않으면 VS Code Ports에서 CPH 포트 27121 전달 상태도 확인합니다.
+이 생성기는 설정 파일만 준비합니다. 브라우저 확장 설치, 로컬 수신 연결, CSES 로그인·제출은
+자동으로 수행하거나 검증하지 않습니다. 클라우드에서 생성한 절대경로를 PC로 복사하지 말고
+실제로 VS Code를 실행할 체크아웃에서 생성기를 다시 실행합니다.
 
 ## 매 문제: 가져오기·테스트·제출
 
@@ -67,6 +72,15 @@ Windows 브라우저와 WSL 사이에 연결이 되지 않으면 VS Code Ports�
 저지 통과의 보장으로 사용하지 않습니다. RE는 오류 출력, TLE는 루프와 복잡도부터 확인합니다.
 디버그 출력은 `sys.stderr`로 보내 제출 출력과 구분합니다.
 Interactive 문제는 이 표준 입력·샘플 실행 흐름의 검증 대상이 아닙니다.
+
+### CSES
+
+[CSES 전용 사용법](../cses/README.md)의 URL·파일명 규칙을 사용합니다.
+Competitive Companion은 `https://cses.fi/problemset/task/문제번호/`에서 제목·원문 URL·예제를
+가져올 수 있습니다. CPH에는 CSES 번호 전용 파일명 옵션이 없어 제목 기반 이름을 그대로
+유지합니다. 예를 들어 1651은 `cses/Range_Update_Queries.py`이며 템플릿 상단에 원문 URL이 남습니다.
+가져오기는 문제 페이지에서 수행하고, 기존 파일을 테스트할 때는 다시 가져오지 않고 직접 엽니다.
+CSES 제출은 사이트에서 직접 하며 CPH의 Codeforces 제출 기능을 사용하지 않습니다.
 
 ### 단일·다중 테스트 템플릿
 
@@ -122,6 +136,8 @@ CPH는 소스의 절대경로를 hash한 이름으로 테스트를 저장합니�
 **이동·재가져오기 전에 중요한 사용자 반례를 복기 문서에 입력·기대 출력으로 보존**합니다.
 이미 이동했다면 기존 `.cph/*.prob`의 내용을 확인해 필요한 사례를 수동 복구합니다.
 메타데이터를 자동 삭제하거나 성공 상태를 새로 만들어 채우지 않습니다.
+다른 컴퓨터에서는 같은 원문을 한 번 가져온 뒤, 저장해 둔 추가 반례를 CPH에 다시 붙여 넣어
+실행합니다. `.cph`를 Git에 올리거나 이전 머신의 절대경로를 그대로 복사해 연결을 가정하지 않습니다.
 
 ## LeetCode
 

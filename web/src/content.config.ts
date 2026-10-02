@@ -12,7 +12,7 @@ const knowledge = defineCollection({
   schema: z.object(common),
 });
 const problems = defineCollection({
-  loader: glob({ base: '..', pattern: ['{atcoder,codeforces,leetcode}/**/*.md', '!**/{README,template}.md'], generateId: ({ entry }) => entry.replace(/\.md$/u, '') }),
+  loader: glob({ base: '..', pattern: ['{atcoder,codeforces,cses,leetcode}/**/*.md', '!**/{README,template}.md'], generateId: ({ entry }) => entry.replace(/\.md$/u, '') }),
   schema: z.object({ ...common, url: z.url({ protocol: /^https$/u }), solution: z.string().min(1) }),
 });
 const contests = defineCollection({

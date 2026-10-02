@@ -1,4 +1,5 @@
-# CPH test metadata and compiled outputs
+# Machine-local CPH test metadata (including cses/.cph/) and compiled outputs
+# Preserve reusable input/output in problem notes before moving/re-importing code.
 .cph/
 *.tcs
 *.bin

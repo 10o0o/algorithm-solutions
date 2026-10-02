@@ -20,6 +20,7 @@ class SetupWorkspaceTests(unittest.TestCase):
         (self.checkout / "templates").mkdir()
         (self.checkout / "atcoder").mkdir()
         (self.checkout / "codeforces").mkdir()
+        (self.checkout / "cses").mkdir()
         shutil.copy2(
             PROJECT_ROOT / "scripts" / "setup_workspace.py",
             self.checkout / "scripts" / "setup_workspace.py",
@@ -51,7 +52,7 @@ class SetupWorkspaceTests(unittest.TestCase):
         workspace = self.checkout / ".local" / f"{platform}.code-workspace"
         return json.loads(workspace.read_text(encoding="utf-8"))
 
-    def test_default_generates_both_portable_workspaces(self) -> None:
+    def test_default_generates_all_portable_workspaces(self) -> None:
         result = self.run_setup()
 
         self.assertEqual(result.returncode, 0, result.stderr)
@@ -76,6 +77,7 @@ class SetupWorkspaceTests(unittest.TestCase):
         for platform, display_name in (
             ("atcoder", "AtCoder (CPH target)"),
             ("codeforces", "Codeforces (CPH target)"),
+            ("cses", "CSES (CPH target)"),
         ):
             workspace = self.read_workspace(platform)
             self.assertEqual(
@@ -101,11 +103,34 @@ class SetupWorkspaceTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertTrue((self.checkout / ".local" / "atcoder.code-workspace").is_file())
         self.assertFalse((self.checkout / ".local" / "codeforces.code-workspace").exists())
+        self.assertFalse((self.checkout / ".local" / "cses.code-workspace").exists())
         settings = self.read_workspace("atcoder")["settings"]
         self.assertEqual(
             settings["cph.general.defaultLanguageTemplateFileLocation"],
             str(self.checkout / "templates" / "python-multi.py"),
         )
+
+    def test_cses_subset_uses_single_template_and_keeps_scratch_files(self) -> None:
+        originals = {"main.py": b"print('scratch')\n", "ex.in": b"4 2\n"}
+        for name, content in originals.items():
+            (self.checkout / name).write_bytes(content)
+
+        result = self.run_setup("--platform", "cses")
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        workspace = self.read_workspace("cses")
+        self.assertEqual(workspace["folders"][0]["path"], "../cses")
+        self.assertEqual(
+            workspace["settings"]["cph.general.defaultLanguageTemplateFileLocation"],
+            str(self.checkout / "templates" / "python.py"),
+        )
+        self.assertEqual(workspace["settings"]["cph.general.saveLocation"], "")
+        self.assertTrue(workspace["settings"]["cph.companion.enableServer"])
+        self.assertEqual(list((self.checkout / "cses").glob("*.py")), [])
+        for platform in ("atcoder", "codeforces"):
+            self.assertFalse((self.checkout / ".local" / f"{platform}.code-workspace").exists())
+        for name, content in originals.items():
+            self.assertEqual((self.checkout / name).read_bytes(), content)
 
     def test_repeated_generation_is_a_byte_and_metadata_no_op(self) -> None:
         first = self.run_setup()
@@ -180,19 +205,23 @@ class SetupWorkspaceTests(unittest.TestCase):
         self.assertFalse((self.checkout / ".local" / "atcoder.code-workspace").exists())
 
     def test_existing_solutions_and_cph_data_are_byte_preserved(self) -> None:
-        solution = self.checkout / "atcoder" / "answer.py"
-        cph_data = self.checkout / "atcoder" / ".cph" / ".answer.py_abcd.prob"
         solution_bytes = b"print('learner solution')\n"
         cph_bytes = b"{\"tests\":[{\"input\":\"1\\n\"}]}\n"
-        solution.write_bytes(solution_bytes)
-        cph_data.parent.mkdir()
-        cph_data.write_bytes(cph_bytes)
+        paths = []
+        for platform in ("atcoder", "codeforces", "cses"):
+            solution = self.checkout / platform / "answer.py"
+            cph_data = self.checkout / platform / ".cph" / ".answer.py_abcd.prob"
+            solution.write_bytes(solution_bytes)
+            cph_data.parent.mkdir()
+            cph_data.write_bytes(cph_bytes)
+            paths.append((solution, cph_data))
 
         result = self.run_setup()
 
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertEqual(solution.read_bytes(), solution_bytes)
-        self.assertEqual(cph_data.read_bytes(), cph_bytes)
+        for solution, cph_data in paths:
+            self.assertEqual(solution.read_bytes(), solution_bytes)
+            self.assertEqual(cph_data.read_bytes(), cph_bytes)
 
 
 if __name__ == "__main__":

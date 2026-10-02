@@ -4,6 +4,21 @@ import { extractSummary, getRecords, normalizeDate } from '../../src/lib/content
 
 const common = { updated:'2026-09-20', tags:['test'] };
 describe('record registry', () => {
+  it('registers CSES notes and their concept backlinks without inventing results', async () => {
+    setMockCollections({
+      knowledge:[{ id:'data-structures/example', collection:'knowledge', data:{...common,title:'검사 전용 개념'}, body:'## 핵심 요약\n\n검사 전용.\n\n[문제](../../cses/Range_Update_Queries.md)' }],
+      problems:[{ id:'cses/Range_Update_Queries', collection:'problems', data:{...common,title:'CSES 검사 전용',url:'https://cses.fi/problemset/task/1651/',solution:'Range_Update_Queries.py'}, body:'검사 전용 노트.\n\n[개념](../knowledge/data-structures/example.md)' }],
+      contests:[],
+    });
+    const records=await getRecords();
+    const problem=records.find((record)=>record.kind==='problem')!;
+    expect(problem.platform).toBe('cses');
+    expect(problem.sourcePath).toBe('cses/Range_Update_Queries.md');
+    expect(problem.relatedKeys).toEqual(['concept:data-structures/example']);
+    expect(problem.backlinkKeys).toEqual(['concept:data-structures/example']);
+    expect(records.find((record)=>record.kind==='concept')?.backlinkKeys).toEqual([problem.key]);
+  });
+
   it('extracts summaries, validates dates, and derives cross-kind links and backlinks', async () => {
     expect(extractSummary('## 핵심 요약\n\n첫 요약.\n\n## 개념 정리\n\n본문')).toBe('첫 요약.');
     expect(extractSummary('## 핵심 요약\n\n시간은 $O(n)$이다.')).toBe('시간은 O(n)이다.');

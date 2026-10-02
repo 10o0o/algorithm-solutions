@@ -53,6 +53,8 @@ git diff --check
   템플릿은 `templates/problem-note.md`, `knowledge/template.md`, `contests/template.md`입니다.
 - CPH는 첫 워크스페이스 폴더에 코드를 생성하며 템플릿 경로 변수를 치환하지 않습니다.
   `.local/*.code-workspace`를 생성해 사용하고 기기 절대경로를 추적 파일에 넣지 않습니다.
+- CSES는 `--platform cses`와 `.local/cses.code-workspace`를 사용합니다. 제목 기반 CPH 파일명과
+  원문 URL을 보존하며 [CSES 사용법](cses/README.md)을 따릅니다. 설정만으로 풀이·AC 기록을 만들지 않습니다.
 - CPH `.cph`에는 절대 소스 경로에 연결된 테스트가 있습니다. 파일 이동·문제 재가져오기로
   추가 반례가 인식되지 않거나 교체될 수 있으므로 [사용법](docs/USAGE.md)의 보존 절차를 따릅니다.
 - 일반 풀이 검증은 샘플·필요한 반례를 중심으로 합니다. 자동 회귀 테스트는 저장소 도구와

@@ -19,7 +19,8 @@ uv run --frozen python scripts/setup_workspace.py
 code .local/atcoder.code-workspace
 ```
 
-Codeforces는 `.local/codeforces.code-workspace`를 엽니다. 생성한 워크스페이스는
+Codeforces는 `.local/codeforces.code-workspace`, **CSES는 `.local/cses.code-workspace`**를 엽니다.
+생성한 워크스페이스는
 이 체크아웃의 Python과 템플릿 경로를 담는 로컬 파일이며, 이동 후에는 다시 생성합니다.
 CPH를 수신하는 VS Code 창은 한 개만 열어 둡니다.
 
@@ -27,13 +28,21 @@ CPH를 수신하는 VS Code 창은 한 개만 열어 둡니다.
 CPH의 `Ctrl+Alt+B`로 예제를 테스트한 뒤 사이트에서 제출합니다.
 [확장 설치·PyPy·다중 테스트·문제 해결](docs/USAGE.md)을 참고하세요.
 
+CSES만 준비하려면 다음을 실행합니다. 문제별 URL·파일명과 반례 재사용은
+[CSES 사용법](cses/README.md)을 따릅니다.
+
+```bash
+uv run --frozen python scripts/setup_workspace.py --platform cses
+code .local/cses.code-workspace
+```
+
 ## 학습과 기록
 
 ```text
 직접 풀이 → 필요한 힌트·리뷰 → 대회 후 업솔빙 → 요청 시 복기·개념 정리 → 독립 재풀이
 ```
 
-- `atcoder/`, `codeforces/`, `leetcode/`: 기존 풀이 코드. 필요한 문제만 같은 이름의 `.md`로 복기합니다.
+- `atcoder/`, `codeforces/`, `cses/`, `leetcode/`: 플랫폼별 풀이 코드. 필요한 문제만 같은 이름의 `.md`로 복기합니다.
 - `knowledge/`: 여러 문제에 다시 적용할 개념과 관련 풀이 링크.
 - `contests/`: 대회 시간 배분, 미해결 이유, 다음 행동.
 - `STATE.md`: 현재 범위와 다음 행동을 담는 재개 지점. `계속` 또는 `오늘 학습 시작`으로 학습을 재개합니다.

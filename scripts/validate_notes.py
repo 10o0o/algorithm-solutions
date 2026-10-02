@@ -17,7 +17,7 @@ from markdown_it import MarkdownIt
 
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
-PLATFORM_DIRECTORIES = {"atcoder", "codeforces", "leetcode"}
+PLATFORM_DIRECTORIES = {"atcoder", "codeforces", "cses", "leetcode"}
 DEFAULT_DIRECTORIES = ("knowledge", "contests", *sorted(PLATFORM_DIRECTORIES))
 EXCLUDED_DEFAULT_NAMES = {"README.md", "template.md"}
 PROHIBITED_COMPONENTS = {".local", ".venv", ".venv-pypy", ".cph", "private", ".git"}
