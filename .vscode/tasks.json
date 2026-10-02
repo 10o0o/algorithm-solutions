@@ -1,0 +1,41 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Companion: Start problem router",
+            "type": "process",
+            "command": "${workspaceFolder}/.venv/bin/python",
+            "args": [
+                "-u",
+                "${workspaceFolder}/scripts/companion_router.py",
+                "--open"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "isBackground": true,
+            "runOptions": {
+                "instanceLimit": 1
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "clear": false
+            },
+            "problemMatcher": {
+                "owner": "companion-router",
+                "pattern": {
+                    "regexp": "^(.+):(\\d+): (.+)$",
+                    "file": 1,
+                    "line": 2,
+                    "message": 3
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "^Companion router starting",
+                    "endsPattern": "^Companion router ready"
+                }
+            }
+        }
+    ]
+}

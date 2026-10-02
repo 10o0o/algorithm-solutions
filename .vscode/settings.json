@@ -11,5 +11,9 @@
     "cph.general.useShortAtCoderName": true,
     "cph.general.autoShowJudge": true,
     "cph.companion.enableServer": false,
-    "cph.general.showLiveUserCount": false
+    "cph.general.showLiveUserCount": false,
+    "files.exclude": {
+        "**/.cph": true,
+        ".local": true
+    }
 }

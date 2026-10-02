@@ -9,32 +9,26 @@ Codeforces Candidate Master(1900)를 중간 목표, Grandmaster(2400)를 장기 
 [공부용 웹사이트](https://10o0o.github.io/algorithm-solutions/)에서 개념과 문제 설명을 검색하고
 연결된 Python 코드를 읽을 수 있습니다. 원본 Markdown은 이 저장소에 그대로 둡니다.
 
-## 시작
+## 시작: 루트 폴더 하나
 
 Linux 또는 VS Code Remote WSL에서 저장소 루트를 열고 실행합니다. `uv`가 필요합니다.
 
 ```bash
 uv sync --frozen
-uv run --frozen python scripts/setup_workspace.py
-code .local/atcoder.code-workspace
+code .
 ```
 
-Codeforces는 `.local/codeforces.code-workspace`, **CSES는 `.local/cses.code-workspace`**를 엽니다.
-생성한 워크스페이스는
-이 체크아웃의 Python과 템플릿 경로를 담는 로컬 파일이며, 이동 후에는 다시 생성합니다.
-CPH를 수신하는 VS Code 창은 한 개만 열어 둡니다.
+VS Code에서 `Tasks: Run Task` → **Companion: Start problem router**를 한 번 실행합니다.
+터미널에 `Companion router ready`가 보이면 브라우저의 Competitive Companion `+`로
+문제를 가져옵니다. 원문 URL에 따라 `atcoder/`, `codeforces/`, `cses/`로 자동 분류합니다.
+CPH는 생성된 파일의 `Ctrl+Alt+B` 테스트를 담당합니다.
 
-브라우저의 Competitive Companion으로 문제를 가져와 직접 풀고,
-CPH의 `Ctrl+Alt+B`로 예제를 테스트한 뒤 사이트에서 제출합니다.
-[확장 설치·PyPy·다중 테스트·문제 해결](docs/USAGE.md)을 참고하세요.
+- 플랫폼별 워크스페이스를 바꿀 필요가 없습니다. 기존 플랫폼 워크스페이스 창은 닫아 둡니다.
+- 루트의 CPH 수신 서버는 꺼져 있으며, 27121 포트는 라우터 하나만 사용합니다.
+- 같은 문제를 다시 가져와도 기존 코드·CPH 반례를 덮어쓰지 않습니다.
+- 사용자 PC에서 Task 시작·확장 연결을 확인해야 합니다. 레포 설정만으로 PC 연결이 완료되지는 않습니다.
 
-CSES만 준비하려면 다음을 실행합니다. 문제별 URL·파일명과 반례 재사용은
-[CSES 사용법](cses/README.md)을 따릅니다.
-
-```bash
-uv run --frozen python scripts/setup_workspace.py --platform cses
-code .local/cses.code-workspace
-```
+[설치·첫 연결·기존 파일 안전 복구](docs/USAGE.md) · [CSES URL·파일명](cses/README.md)
 
 ## 학습과 기록
 

@@ -6,33 +6,28 @@
 
 ## 시작
 
-실제로 VS Code를 실행할 컴퓨터의 저장소 루트에서 실행합니다.
+레포 루트 하나를 열고 URL별 자동 분류 수신 작업을 실행합니다.
 
 ```bash
 uv sync --frozen
-uv run --frozen python scripts/setup_workspace.py --platform cses
-code .local/cses.code-workspace
+code .
 ```
 
-1. VS Code 추천 확장인 CPH·Python과 브라우저의
-   [Competitive Companion](https://github.com/jmerle/competitive-companion#install)을 준비합니다.
-   WSL 사용자는 CPH가 해당 WSL 확장 호스트에서 실행되는지 확인합니다.
-2. 첫 워크스페이스 폴더가 `CSES (CPH target)`인지 확인하고 CPH 수신 창은 하나만 둡니다.
-3. CSES **문제 페이지**에서 Companion의 `+`를 누릅니다. 목록·통계·제출 결과 페이지가 아닙니다.
-4. 생성된 파일 상단 제목·URL과 CPH의 샘플을 원문과 대조한 뒤 직접 풀이를 작성합니다.
-5. `Ctrl+Alt+B`로 샘플·추가 반례를 실행하고 CSES 사이트에서 직접 제출합니다.
-   로컬 통과, 사용자가 보고한 AC, 직접 확인한 온라인 판정을 서로 구분합니다.
+VS Code의 `Tasks: Run Task` → `Companion: Start problem router`를 실행한 뒤
+[CSES 문제 본문](https://cses.fi/problemset/task/1651/)에서 Competitive Companion의 `+`를 누릅니다.
+수신기가 `cses/`에 소스·샘플을 만들고 CPH에서 `Ctrl+Alt+B`로 테스트합니다.
+사이트에서 직접 제출하고 실제 결과를 확인합니다.
 
-전체 설치·PyPy·연결 문제 해결은 [공통 사용법](../docs/USAGE.md)을 따릅니다.
-클라우드에서 설정 생성에 성공해도 사용자 PC의 Companion→CPH 연결이 확인된 것은 아닙니다.
-수신 포트는 27121이며, 연결 문제가 있을 때 확장 호스트·중복 창·WSL 포트 전달을 확인합니다.
-방화벽이나 브라우저 권한을 임의로 변경하지 않습니다.
+[설치·수신 연결·잘못 분류된 파일 복구](../docs/USAGE.md)를 따릅니다.
+기존 플랫폼 `.code-workspace` 창과 라우터를 동시에 사용하지 않습니다.
+클라우드 설정 생성은 사용자 PC의 브라우저·CPH 연결 확인을 의미하지 않습니다.
 
 ## URL과 파일명
 
-CPH 기본 제목 기반 파일명을 유지합니다. 임의로 번호 이름으로 바꾸면 재가져오기 때 별도 파일이
-생기거나 기존 반례 연결이 끊길 수 있습니다. 원문 URL의 문제 번호를 식별자로 사용하고,
+라우터도 CPH 기본 제목 기반 파일명을 유지합니다. 파일 이름·경로를 수동으로 바꾸면
+기존 `.cph` 반례 연결이 끊길 수 있으므로 먼저 원본 테스트를 보존합니다. 원문 URL의 문제 번호를 식별자로 사용하고,
 템플릿의 `# $name$`, `# $url$`은 최초 가져오기 때 실제 값으로 치환됩니다.
+같은 URL의 파일이 이미 있으면 제목이 바뀌어도 기존 파일을 다시 사용합니다.
 
 | CSES 원문 | CPH Python 파일명 |
 | --- | --- |
@@ -42,16 +37,17 @@ CPH 기본 제목 기반 파일명을 유지합니다. 임의로 번호 이름�
 | [1749 · List Removals](https://cses.fi/problemset/task/1749/) | `List_Removals.py` |
 | [1651 · Range Update Queries](https://cses.fi/problemset/task/1651/) | `Range_Update_Queries.py` |
 
-CPH에 CSES 번호형 이름을 지정하는 설정은 없습니다. 설정 생성기는 `cses/`를 첫 폴더로 지정하며
-`saveLocation`은 소스 위치가 아닌 **테스트 메타데이터 위치**입니다. 빈 값으로 두어
-`cses/.cph/`를 사용합니다. 문제 코드는 Companion으로 가져올 때 생성되며 설정 생성기는 만들지 않습니다.
+루트 수신기는 CSES 문제 URL을 확인한 후 `cses/`를 선택합니다.
+`saveLocation`은 소스 위치가 아닌 테스트 메타데이터 위치이므로 빈 값을 유지합니다.
+소스 옆 `cses/.cph/`에 현재 컴퓨터의 경로에 맞는 테스트 연결이 저장됩니다.
 
 ## 테스트 재사용과 기록
 
 - 같은 컴퓨터·경로에서 이어 풀 때는 기존 `.py`를 열고 `Ctrl+Alt+B`를 실행합니다.
-  매번 Companion의 `+`를 누르지 않습니다. 재가져오기는 기존 코드가 있어도 테스트를 샘플로 교체할 수 있습니다.
+  루트 라우터로 다시 가져와도 기존 코드·테스트를 보존합니다. 기본 CPH의 직접 가져오기는
+  테스트를 교체할 수 있으므로 이전 수신 창을 혼용하지 않습니다.
 - `.cph/*.prob`는 소스 절대경로와 연결된 로컬 상태이므로 Git에서 제외합니다.
-  `.local/` 워크스페이스 역시 절대경로가 있어 제외합니다. 풀이 `.py`와 요청한 복기 `.md`는 추적합니다.
+  이전 `.local/` 워크스페이스 역시 절대경로가 있어 제외합니다. 풀이 `.py`와 요청한 복기 `.md`는 추적합니다.
 - 보존할 사용자 반례는 **이동·재가져오기 전** 같은 이름의 복기 문서에 입력, 기대 출력, 확인 이유로 남깁니다.
   복기는 [문제 노트 템플릿](../templates/problem-note.md)을 따르며 실제 소스가 있을 때 작성합니다.
   예를 들어 `Range_Update_Queries.md`의 `solution`은 `Range_Update_Queries.py`입니다.
@@ -64,8 +60,8 @@ CPH에 CSES 번호형 이름을 지정하는 설정은 없습니다. 설정 생�
 
 2026-10-02 공식 소스 확인 기준:
 
-- [Competitive Companion CSES 파서](https://github.com/jmerle/competitive-companion/blob/master/src/parsers/problem/CSESProblemParser.ts)
-- [Companion 기본 수신 포트](https://github.com/jmerle/competitive-companion/blob/master/src/hosts/hosts.ts)
-- [CPH 파일명·첫 폴더·템플릿·재가져오기 처리](https://github.com/agrawal-d/cph/blob/main/src/companion.ts)
-- [CPH 메타데이터 저장](https://github.com/agrawal-d/cph/blob/main/src/parser.ts)
-- [CPH 사용법](https://github.com/agrawal-d/cph/blob/main/docs/user-guide.md)
+- [Competitive Companion CSES 파서](https://github.com/jmerle/competitive-companion/blob/df90fabb52e8f566ea3382405e22d246af5d6a69/src/parsers/problem/CSESProblemParser.ts)
+- [Companion 기본 수신 포트](https://github.com/jmerle/competitive-companion/blob/df90fabb52e8f566ea3382405e22d246af5d6a69/src/hosts/hosts.ts)
+- [CPH 파일명·첫 폴더·템플릿·재가져오기 처리](https://github.com/agrawal-d/cph/blob/187590eae3379bad8caaf7bd930d2987557a7966/src/companion.ts)
+- [CPH 메타데이터 저장](https://github.com/agrawal-d/cph/blob/187590eae3379bad8caaf7bd930d2987557a7966/src/parser.ts)
+- [CPH 사용법](https://github.com/agrawal-d/cph/blob/187590eae3379bad8caaf7bd930d2987557a7966/docs/user-guide.md)

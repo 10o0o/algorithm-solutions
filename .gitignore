@@ -3,6 +3,8 @@
 .cph/
 *.tcs
 *.bin
+# Incomplete router publication files after an interrupted process
+.companion-*.tmp
 
 # Python
 __pycache__/

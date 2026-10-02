@@ -8,7 +8,6 @@ Python 풀이, 요청한 개념 정리와 확인한 학습 경험을 쌓는 개�
 
 ```bash
 uv sync --frozen
-uv run --frozen python scripts/setup_workspace.py
 uv run --frozen python -m unittest discover -s tests -v
 uv run --frozen python scripts/validate_notes.py
 uv lock --check
@@ -19,7 +18,8 @@ git diff --check
 배포 경로 검사는 `SITE_BASE=/algorithm-solutions/ npm run build` 후 같은 환경변수로
 `npm run test:e2e`를 실행합니다. 검색은 빌드 미리보기에서 확인합니다.
 
-집중 검사: `uv run --frozen python -m unittest discover -s tests -p test_setup_workspace.py -v`.
+라우터 집중 검사: `uv run --frozen python -m unittest discover -s tests -p test_companion_router.py -v`.
+이전 워크스페이스 생성기 검사는 `-p test_setup_workspace.py`로 실행합니다.
 검사 도구의 의존성은 개발용이며, 제출 코드는 표준 라이브러리 기반 단일 파일입니다.
 제출 문법은 PyPy 3.10 호환을 기본으로 하고, 선택한 저지 실행 환경을 확인합니다.
 
@@ -51,12 +51,14 @@ git diff --check
   환경 설정·정리 과정에서 삭제하거나 템플릿으로 덮어쓰지 않습니다.
 - 새 풀이 복기는 코드 옆 같은 이름의 `.md`에 둡니다. `solution`은 노트 기준 상대경로입니다.
   템플릿은 `templates/problem-note.md`, `knowledge/template.md`, `contests/template.md`입니다.
-- CPH는 첫 워크스페이스 폴더에 코드를 생성하며 템플릿 경로 변수를 치환하지 않습니다.
-  `.local/*.code-workspace`를 생성해 사용하고 기기 절대경로를 추적 파일에 넣지 않습니다.
-- CSES는 `--platform cses`와 `.local/cses.code-workspace`를 사용합니다. 제목 기반 CPH 파일명과
-  원문 URL을 보존하며 [CSES 사용법](cses/README.md)을 따릅니다. 설정만으로 풀이·AC 기록을 만들지 않습니다.
-- CPH `.cph`에는 절대 소스 경로에 연결된 테스트가 있습니다. 파일 이동·문제 재가져오기로
-  추가 반례가 인식되지 않거나 교체될 수 있으므로 [사용법](docs/USAGE.md)의 보존 절차를 따릅니다.
+- 기본 편집 환경은 레포 루트 폴더 하나입니다. `Companion: Start problem router` Task가
+  공식 Companion JSON을 URL별로 분류하고 CPH는 테스트만 실행합니다. CPH 수신 서버를 동시에 켜지 않습니다.
+- 라우터는 localhost 전용이며 코드·기존 반례를 덮어쓰거나 문제 코드를 실행하지 않습니다.
+  `--recover`는 원본 코드·`.cph`를 보존한 복사만 수행합니다. 미확인 사용자 파일을 임의 이동하지 않습니다.
+- 예전 `scripts/setup_workspace.py`, `.local/*.code-workspace`는 호환용입니다. 첫 폴더 저장 방식이므로
+  자동 분류와 혼용하지 않습니다. 기기 절대경로는 추적 파일에 넣지 않습니다.
+- CSES 파일명·URL·복구 절차는 [CSES 사용법](cses/README.md), 공통 흐름은 [사용법](docs/USAGE.md)을 따릅니다.
+  설정만으로 풀이·AC 기록을 만들지 않습니다. `.cph`는 로컬 메타데이터이며 보존할 반례는 복기에 남깁니다.
 - 일반 풀이 검증은 샘플·필요한 반례를 중심으로 합니다. 자동 회귀 테스트는 저장소 도구와
   반복 사용하는 알고리즘 구현에 집중합니다.
 - 웹은 공개 노트와 연결된 플랫폼 풀이를 직접 읽습니다. Markdown 원본·코드 경로를 보존하고

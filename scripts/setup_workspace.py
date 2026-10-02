@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate portable VS Code workspaces for Competitive Programming Helper."""
+"""Generate legacy per-platform CPH workspaces; use the root router for automatic routing."""
 
 from __future__ import annotations
 
@@ -196,6 +196,7 @@ def replace_if_changed(destination: Path, content: bytes) -> bool:
 
 def main() -> int:
     arguments = parse_args()
+    print("Legacy CPH mode: close the root Companion router before opening these workspaces.")
     root = Path(__file__).absolute().parent.parent
     platforms = (arguments.platform,) if arguments.platform else PLATFORMS
 
