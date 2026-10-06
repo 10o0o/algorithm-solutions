@@ -1,4 +1,4 @@
 interface:
   display_name: "알고리즘 학습"
-  short_description: "현재 학습 위치에서 직접 풀이와 필요한 힌트·리뷰를 이어갑니다"
-  default_prompt: "$study-algorithms로 현재 학습 위치에서 오늘 공부를 이어가줘."
+  short_description: "로드맵에 맞춰 기법을 배우고 직접 설계·구현합니다"
+  default_prompt: "$study-algorithms로 현재 주제의 목표를 정하고 직접 학습을 이어가줘."

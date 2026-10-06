@@ -2,20 +2,48 @@
 
 자료는 학습 방향과 도구를 보조하는 용도로 사용한다. 실제 학습 기록에는 확인한 자료의 URL만 남기고, 자료를 읽었다는 사실만으로 숙달을 판정하지 않는다.
 
-## 학습 안내와 연습
+아래 커리큘럼 자료의 구성과 역할은 2026-10-06에 확인했다. 외부 자료의 개편과 실제 문제의 실행 제약은 해당 수업에서 다시 확인한다.
 
-- [USACO Guide: Using This Guide](https://usaco.guide/general/using-this-guide) — 전체 경로를 고르는 안내. Python 지원 범위는 주제별로 확인한다.
-- [USACO Guide: Practicing](https://usaco.guide/general/practicing) — 문제를 고르고 복습하는 방법.
-- [cp-algorithms](https://cp-algorithms.com/) — 알고리즘과 자료구조 참고서.
-- [Competitive Programmer's Handbook](https://cses.fi/book/index.php) — 알고리즘 책.
-- [CSES Problem Set](https://cses.fi/problemset/) — 구현과 검증에 사용할 문제 모음.
-- [Codeforces EDU](https://codeforces.com/edu/courses?locale=en) — 주제별 강의와 연습.
-- [AtCoder DP contest](https://atcoder.jp/contests/dp/tasks) — DP 기초 연습.
-- [AtCoder Typical 90](https://atcoder.jp/contests/typical90/tasks?lang=ja) — 다양한 전형 연습.
+## 주제 지도와 연습 자료
 
-USACO Guide는 학습 경로와 연습 문제를 고르는 데 사용한다. Python 지원은 주제별로 제한될 수 있고 자료에는 C++ 예시가 많으므로, Python 구현은 별도로 제약과 실행 결과를 확인한다.
+주제 순서와 주간 운영의 기준은 [로드맵](../ROADMAP.md)이다. 아래 자료는 선택한 기술을 공부하고
+직접 구현할 문제를 찾는 데 사용하며, 어떤 사이트의 전체 순서를 그대로 진도로 삼지 않는다.
 
-자료를 그대로 진도로 이식하지 않는다. USACO의 경로 구조만 참고하고, Handbook·cp-algorithms의 C++ 예시는 Python으로 별도 검증한다. CSES는 필요한 문제를 선별하고, Codeforces EDU는 태그를 가린 혼합 연습과 연결한다. Typical 90은 별도 등급으로 환산하지 않는다. PyRival은 구현을 이해하고 동작을 확인한 뒤 필요한 템플릿만 추가한다.
+### USACO Guide: 선택형 주제 지도
+
+- [Using This Guide](https://usaco.guide/general/using-this-guide)에서 각 경로와 문제 페이지를 찾는다.
+- [Graph Traversal](https://usaco.guide/silver/graph-traversal)은 DFS·BFS를 시작할 때 참고한다.
+- [Gold](https://usaco.guide/gold)와 [Platinum](https://usaco.guide/plat)은 필요한 주제의 설명과 예제를 찾아보는 상위 주제 지도다.
+- [Strongly Connected Components](https://usaco.guide/adv/SCC)와 [FFT](https://usaco.guide/adv/fft)는 해당 고급 주제를 다룰 때 선택해 참고한다.
+- [Guide settings](https://usaco.guide/settings)는 Python 지원이 제한적임을 안내한다. 코드 예시와 지원 언어는 페이지마다 살펴본다.
+
+USACO Guide는 전체 코스를 순서대로 끝내는 교재가 아니라 필요한 주제를 찾는 지도다. 페이지에 C++ 예시만 있더라도 저장소의 주력 언어는 Python이다. 실제 입력 크기와 시간 제한으로 Python 구현을 판단하며, C++로 일괄 전환하지 않는다.
+
+### Competitive Programmer's Handbook와 CSES
+
+- [Competitive Programmer's Handbook](https://cses.fi/book/book.pdf)은 아이디어와 기초 개념을 확인하는 참고서다. FFT 범위는 여기서 다루지 않으므로 필요하면 cp-algorithms를 본다.
+- [CSES Problem Set](https://cses.fi/problemset/)은 현재 학습 주제와 맞는 문제를 골라 설계·구현·테스트하는 연습장이다.
+
+책의 장이나 문제집 번호를 학습 진도로 그대로 옮기지 않는다. 자료를 읽은 것만으로 문제 해결이나 숙달을 판정하지 않는다.
+
+### AtCoder 문제 묶음
+
+- [Educational DP Contest](https://atcoder.jp/contests/dp)은 A–Z 26문제로 구성된 DP 연습 모음이다. 문제 문자가 난이도 순서를 뜻한다고 가정하지 않고, 상태와 점화식 패턴에 맞춰 고른다.
+- [Typical 90](https://atcoder.jp/contests/typical90)은 여러 전형을 연습하는 모음이다. 이미 익숙한 주제에서 ★4–5 문제부터 살펴보고, 대표 문제 진단 결과에 따라 범위를 조정한다. 별 개수를 다른 사이트 등급으로 환산하지 않는다.
+- [AtCoder Library Practice Contest](https://atcoder.jp/contests/practice2/tasks)는 자료구조의 기술 구현과 경계 조건을 확인할 때 필요한 문제를 골라 쓴다.
+
+### 세부 알고리즘 참고
+
+- [cp-algorithms: Strongly Connected Components](https://cp-algorithms.com/graph/strongly-connected-components.html)는 SCC 분해와 축약 그래프의 세부 참고 자료다.
+- [cp-algorithms: FFT and polynomial multiplication](https://cp-algorithms.com/algebra/fft.html)는 FFT·다항식 곱셈과 NTT 관련 구현 세부를 확인할 때 쓴다.
+
+### 추가 연습 자료
+
+- [Codeforces EDU](https://codeforces.com/edu/courses?locale=en) — 필요할 때 주제별 강의와 연습을 찾는다. 혼합 진단으로 사용할 문제는 풀이 전에 주제와 태그를 가린다.
+- [USACO Guide: Practicing](https://usaco.guide/general/practicing) — 선택한 문제를 연습하고 복습하는 방법을 참고한다.
+- [cp-algorithms](https://cp-algorithms.com/) — 다른 알고리즘·자료구조 주제의 세부 참고 문서를 찾는다.
+
+기본 구현 언어는 Python이다. C++로 된 설명은 필요한 개념만 읽고 Python으로 옮겨 실제 제약과 실행 결과를 확인한다. 성능 문제를 이유로 언어를 바꾸는 결정은 반복해서 확인된 병목에 한정한다.
 
 ## Python과 실행 도구 비교
 
