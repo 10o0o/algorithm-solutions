@@ -28,3 +28,6 @@ web/playwright-report/
 
 # OS/editor noise
 .DS_Store
+
+# Local Spec Kit workflow state and output
+/.specify/workflows/runs/
