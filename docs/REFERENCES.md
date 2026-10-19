@@ -2,7 +2,7 @@
 
 자료는 학습 방향과 도구를 보조하는 용도로 사용한다. 실제 학습 기록에는 확인한 자료의 URL만 남기고, 자료를 읽었다는 사실만으로 숙달을 판정하지 않는다.
 
-아래 커리큘럼 자료의 구성과 역할은 2026-10-06에 확인했다. 외부 자료의 개편과 실제 문제의 실행 제약은 해당 수업에서 다시 확인한다.
+기존 자료·도구의 2026-10-06 확인 기록을 유지한다. 학습 자료의 구성·한계와 계정 출발점은 2026-10-19의 [개편 조사](../specs/001-redesign-learning-system/research-evidence.md)에 근거해 보완했다. 이번 구현 단계에서 외부 페이지를 새로 조회한 것은 아니다. 외부 자료의 개편과 실제 문제의 실행 제약은 해당 수업에서 다시 확인한다.
 
 ## 주제 지도와 연습 자료
 
@@ -17,19 +17,19 @@
 - [Strongly Connected Components](https://usaco.guide/adv/SCC)와 [FFT](https://usaco.guide/adv/fft)는 해당 고급 주제를 다룰 때 선택해 참고한다.
 - [Guide settings](https://usaco.guide/settings)는 Python 지원이 제한적임을 안내한다. 코드 예시와 지원 언어는 페이지마다 살펴본다.
 
-USACO Guide는 전체 코스를 순서대로 끝내는 교재가 아니라 필요한 주제를 찾는 지도다. 페이지에 C++ 예시만 있더라도 저장소의 주력 언어는 Python이다. 실제 입력 크기와 시간 제한으로 Python 구현을 판단하며, C++로 일괄 전환하지 않는다.
+USACO Guide는 고정된 완주 실라버스가 아니라 필요한 주제를 찾는 지도다. 한 모듈 안의 난도는 다른 모듈과의 절대 비교 척도가 아니다. 페이지에 C++ 예시만 있더라도 저장소의 주력 언어는 Python이다. 제한된 Python 지원과 실제 입력 크기·시간 제한을 따로 확인하며, C++로 일괄 전환하지 않는다.
 
 ### Competitive Programmer's Handbook와 CSES
 
 - [Competitive Programmer's Handbook](https://cses.fi/book/book.pdf)은 아이디어와 기초 개념을 확인하는 참고서다. FFT 범위는 여기서 다루지 않으므로 필요하면 cp-algorithms를 본다.
-- [CSES Problem Set](https://cses.fi/problemset/)은 현재 학습 주제와 맞는 문제를 골라 설계·구현·테스트하는 연습장이다.
+- [CSES Problem Set](https://cses.fi/problemset/)은 탐색·DP·그래프·구간질의·트리·수학·문자열·기하 등의 대표 구현 과제를 골라 설계·구현·테스트하는 연습장이다.
 
 책의 장이나 문제집 번호를 학습 진도로 그대로 옮기지 않는다. 자료를 읽은 것만으로 문제 해결이나 숙달을 판정하지 않는다.
 
 ### AtCoder 문제 묶음
 
-- [Educational DP Contest](https://atcoder.jp/contests/dp)은 A–Z 26문제로 구성된 DP 연습 모음이다. 문제 문자가 난이도 순서를 뜻한다고 가정하지 않고, 상태와 점화식 패턴에 맞춰 고른다.
-- [Typical 90](https://atcoder.jp/contests/typical90)은 여러 전형을 연습하는 모음이다. 이미 익숙한 주제에서 ★4–5 문제부터 살펴보고, 대표 문제 진단 결과에 따라 범위를 조정한다. 별 개수를 다른 사이트 등급으로 환산하지 않는다.
+- [Educational DP Contest 문제 목록](https://atcoder.jp/contests/dp/tasks)은 A–Z 26개의 DP 패턴 연습장이다. 상태·전이에 맞게 선별하며 문자 순서를 엄밀한 난도 순으로 가정하지 않는다.
+- [Typical 90](https://atcoder.jp/contests/typical90)은 E869120이 기획·출제한 90개의 전형 문제 모음이며 제작자 설명의 별 1–7을 컬렉션 안의 선택 단서로 쓴다. 현재 기법의 선수와 실제 시도에 맞춰 고르며, 번호순 완주나 별에서 다른 플랫폼 rating으로의 환산을 요구하지 않는다.
 - [AtCoder Library Practice Contest](https://atcoder.jp/contests/practice2/tasks)는 자료구조의 기술 구현과 경계 조건을 확인할 때 필요한 문제를 골라 쓴다.
 
 ### 세부 알고리즘 참고
@@ -40,10 +40,19 @@ USACO Guide는 전체 코스를 순서대로 끝내는 교재가 아니라 필�
 ### 추가 연습 자료
 
 - [Codeforces EDU](https://codeforces.com/edu/courses?locale=en) — 필요할 때 주제별 강의와 연습을 찾는다. 혼합 진단으로 사용할 문제는 풀이 전에 주제와 태그를 가린다.
-- [USACO Guide: Practicing](https://usaco.guide/general/practicing) — 선택한 문제를 연습하고 복습하는 방법을 참고한다.
+- [USACO Guide: Practicing](https://usaco.guide/general/practicing) — 적정 난도의 독립 시도·시도 후 학습·직접 구현을 참고한다. 해설을 볼 시점에는 여러 작성자의 견해가 있으므로 하나의 의무 타이머로 일반화하지 않는다. 실제 막힘과 요청에 따라 도움을 조절한다.
 - [cp-algorithms](https://cp-algorithms.com/) — 다른 알고리즘·자료구조 주제의 세부 참고 문서를 찾는다.
 
 기본 구현 언어는 Python이다. C++로 된 설명은 필요한 개념만 읽고 Python으로 옮겨 실제 제약과 실행 결과를 확인한다. 성능 문제를 이유로 언어를 바꾸는 결정은 반복해서 확인된 병목에 한정한다.
+
+## 계정 출발점과 목표의 근거
+
+2026-10-19 KST에 조사한 `10o0o`의 **1065 (Provisional), rated 9회, 최신 ABC480, performance 1532**를 현재 출발점으로 삼는다. [공식 프로필](https://atcoder.jp/users/10o0o?lang=en)과 [공식 history JSON](https://atcoder.jp/users/10o0o/history/json)에 근거한 스냅샷이며, 상세 수치·최근 5회 performance 1197/1228/1272/1505/1532·평균 1346.8·중앙값 1272와 제출 ID는 [조사 근거](../specs/001-redesign-learning-system/research-evidence.md#최신-atcoder-기록)에서 관리한다. 현재 재개 요약은 [STATE](../STATE.md), 목표와 측정 정의는 [ROADMAP](../ROADMAP.md#목표와-측정)을 따른다.
+
+- [ABC480 공식 안내](https://atcoder.jp/contests/abc480)·[문제 목록](https://atcoder.jp/contests/abc480/tasks): 2026-10-17 21:00–22:40 KST, 100분·A–G 7문제의 근거다. 다른 회차의 시간·문제 수를 대신하지 않는다.
+- [AtCoder Problems 공개 API](https://kenkoooo.com/atcoder/atcoder-api/v3/user/submissions?user=10o0o&from_second=1792238400)·[게시자 API 문서](https://github.com/kenkoooo/AtCoderProblems/blob/master/doc/api.md): 대회 시간 구간에서 A–E AC 다섯 건을 확인한 **비공식 출처**다. 공식 제출 목록·standings의 직접 요청은 HTTP 429로 미확인이다. 누적 AC 시각은 각 문제의 순수 사고·구현 시간이 아니며, 도움·F/G 열람/시도·Codeforces 현재 기준선은 미확인이다.
+- [AtCoder rating 안내](https://info.atcoder.jp/overview/contest/rating)·[Codeforces 공식 등급 공지](https://codeforces.com/blog/entry/20638): 각각의 색상 경계에 대한 출처다. 서로 환산하거나 단일 performance를 숙달로 해석하지 않는다.
+- [AtCoder 대회 안내](https://info.atcoder.jp/overview/contest/algorithm)·[2026 ARC 안내](https://atcoder.jp/posts/2026ARC_en): 2026-10-19 조사에서는 ABC rated 0–1999와 ARC 형식별 조건을 확인했다. 노랑 목표 부근의 rating 점검은 해당 회차의 최신 조건을 다시 확인한다. ABC 올솔 연습은 rating 대상 여부와 별개다.
 
 ## Python과 실행 도구 비교
 
