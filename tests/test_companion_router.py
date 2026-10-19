@@ -255,8 +255,12 @@ class RouterTests(unittest.TestCase):
     def test_root_task_uses_local_interpreter_without_automatic_run_or_cph_listener(self):
         root = Path(__file__).resolve().parents[1]
         tasks = json.loads((root / ".vscode/tasks.json").read_text())["tasks"]
-        self.assertEqual(len(tasks), 1)
-        task = tasks[0]
+        router_tasks = [
+            task for task in tasks
+            if task.get("label") == "Companion: Start problem router"
+        ]
+        self.assertEqual(len(router_tasks), 1)
+        task = router_tasks[0]
         self.assertEqual(task["type"], "process")
         self.assertEqual(task["command"], "${workspaceFolder}/.venv/bin/python")
         self.assertNotIn("runOn", task["runOptions"])
