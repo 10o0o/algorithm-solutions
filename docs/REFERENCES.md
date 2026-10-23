@@ -2,7 +2,7 @@
 
 자료는 학습 방향과 도구를 보조하는 용도로 사용한다. 실제 학습 기록에는 확인한 자료의 URL만 남기고, 자료를 읽었다는 사실만으로 숙달을 판정하지 않는다.
 
-기존 자료·도구의 2026-10-06 확인 기록을 유지한다. 학습 자료의 구성·한계와 계정 출발점은 2026-10-19의 [개편 조사](../specs/001-redesign-learning-system/research-evidence.md)에 근거해 보완했다. 이번 구현 단계에서 외부 페이지를 새로 조회한 것은 아니다. 외부 자료의 개편과 실제 문제의 실행 제약은 해당 수업에서 다시 확인한다.
+기존 자료·도구의 2026-10-06 확인 기록을 유지한다. 학습 자료의 구성·한계와 계정 출발점은 2026-10-19의 [개편 조사](../specs/001-redesign-learning-system/research-evidence.md)에 근거한다. 아래 학습 방법 연구는 2026-10-23의 [수업 개선 설계](TEACHING_DESIGN.md#연구와-자료를-적용하는-범위)에서 확인한 근거를 연결한 것이며, 계정·플랫폼·도구의 과거 확인일을 갱신한 작업은 아니다. 외부 자료의 개편과 실제 문제의 실행 제약은 해당 수업에서 다시 확인한다.
 
 ## 주제 지도와 연습 자료
 
@@ -44,6 +44,19 @@ USACO Guide는 고정된 완주 실라버스가 아니라 필요한 주제를 �
 - [cp-algorithms](https://cp-algorithms.com/) — 다른 알고리즘·자료구조 주제의 세부 참고 문서를 찾는다.
 
 기본 구현 언어는 Python이다. C++로 된 설명은 필요한 개념만 읽고 Python으로 옮겨 실제 제약과 실행 결과를 확인한다. 성능 문제를 이유로 언어를 바꾸는 결정은 반복해서 확인된 병목에 한정한다.
+
+## 학습 방법 연구
+
+다음은 강사가 설명·독립 작업·재방문을 설계할 때 참고하는 연구다. 연구에서 관찰한 결과와 CP 수업에 적용한 판단을 구분한다. 매 수업마다 모두 다시 읽는 선수 자료나 학습자 과제로 삼지 않는다.
+
+| 연구 | 수업 설계에 참고할 내용 | 적용 한계 |
+| --- | --- | --- |
+| [Atkinson·Renkl·Merrill, 2003 — Transitioning From Studying Examples to Solving Problems](https://www.researchgate.net/publication/200772684_Transitioning_From_Studying_Examples_to_Solving_Problems_Effects_of_Self-Explanation_Prompts_and_Fading_Worked-Out_Steps) | 예제의 풀이 단계를 줄이며 원리를 설명하게 한 확률 문제 실험을 참고해, 필요한 설명 뒤 도움을 줄인 전체 풀이로 연결한다. | CP 실험이 아니며 도움 축소만으로 모든 먼 전이가 보장되지는 않는다. |
+| [Margulieux·Morrison·Decker, 2020 — Reducing withdrawal and failure rates in introductory programming with subgoal labeled worked examples](https://link.springer.com/article/10.1186/s40594-020-00222-7) | 입문 프로그래밍의 기능적 하위 목표를 표시한 예제에서 단기 퀴즈의 이점을 관찰했다. 코드 덩어리의 목적을 설명하는 데 참고한다. | Java 입문 수업의 준실험이며 평균 시험 점수 차이는 통계적으로 유의하지 않았다. 매 줄 퀴즈나 장기 숙달의 근거로 확대하지 않는다. |
+| [Roediger·Karpicke, 2006 — Test-Enhanced Learning](https://learninglab.psych.purdue.edu/downloads/2006/2006_Roediger_Karpicke_PsychSci.pdf) | 반복 읽기의 즉시 성과와 나중의 인출 성과가 달랐다는 결과를 참고해, 설명 직후 이해와 다른 날 기억에서 구성하는 활동을 구분한다. | 글 기억 연구이므로 CP 문제 해결 능력이나 rating 상승량으로 환산할 수 없다. |
+| [Rohrer·Taylor, 2007 — The shuffling of mathematics problems improves learning](https://link.springer.com/article/10.1007/s11251-007-9015-8) | 간격을 둔 연습과 유형을 섞은 연습의 지연 검사 결과를 참고해, 배운 기법의 선택·재방문 기회를 기존 예산 안에 둔다. | 대학생 수학 연구이며 개인의 고정 최적 복습 간격을 정하지 않는다. 새 기법의 독립 발견을 강제하는 근거가 아니다. |
+
+실제 연습 조정에는 위의 USACO Guide 연습 안내도 함께 참고한다. 구체적인 과제 수·시점·도움 선택은 [학습 스킬](../.agents/skills/study-algorithms/SKILL.md), 활동 대체와 시간은 [로드맵](../ROADMAP.md#주간-운영과-점검)을 따른다. 연구를 인용했다는 사실만으로 이 사용자의 학습 효과가 확인된 것은 아니다.
 
 ## 계정 출발점과 목표의 근거
 
