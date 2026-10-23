@@ -12,7 +12,7 @@
 4. [너비 우선 탐색 (BFS)](graphs/bfs.md)
 5. [깊이 우선 탐색 (DFS)](graphs/dfs.md)
 
-연결해서 읽을 현재 문제 노트는 [1422. Maximum Score After Splitting a String](../leetcode/easy/1422.maximum-score-after-splitting-a-string.md), [2226. Maximum Candies Allocated to K Children](../leetcode/medium/2226.maximum-candies-allocated-to-k-children.md), [1302. Deepest Leaves Sum](../leetcode/medium/1302.deepest-leaves-sum.md)이다.
+개념과 풀이를 연결한 작성 예시는 [1422. Maximum Score After Splitting a String](../leetcode/easy/1422.maximum-score-after-splitting-a-string.md), [2226. Maximum Candies Allocated to K Children](../leetcode/medium/2226.maximum-candies-allocated-to-k-children.md), [1302. Deepest Leaves Sum](../leetcode/medium/1302.deepest-leaves-sum.md)에서 볼 수 있다. 현재 재개 위치는 [STATE](../STATE.md)를 따른다.
 
 ## 최소 형식
 

@@ -4,6 +4,8 @@ description: "승인된 알고리즘 학습 체계 개편의 실행 작업과 �
 
 # 작업 목록: 주제와 난도에 따른 알고리즘 학습 체계 개편
 
+> **과거 설계·검증 자료(2026-10-19).** 현재 재개는 [STATE](../../STATE.md), 수업 운영은 [학습 스킬](../../.agents/skills/study-algorithms/SKILL.md), 채택 근거는 [수업 개선 설계](../../docs/TEACHING_DESIGN.md)를 따른다. 아래의 옛 재개 과제·실행기·승인 단계는 당시 기록이며 현재 지시가 아니다.
+
 **입력**: [명세](spec.md), [계획](plan.md), [연구](research.md), [개념 모델](data-model.md), [회차 계약](contracts/learning-session.md), [기록 계약](contracts/document-records.md), [검증 가이드](quickstart.md).
 
 **공식 실행**: `1d02e086`. 작업 분해 시 `review-spec`·`review-plan` 완료와 현재 `tasks` 단계를 확인했다. 승인 기록은 spec·plan에 있으며 중복 승인을 요구하지 않는다. 실제 Git 브랜치는 `main`이다. 새 workflow 실행·브랜치·커밋·push·제출·배포를 만들지 않는다.
